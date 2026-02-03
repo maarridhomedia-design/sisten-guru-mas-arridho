@@ -1,0 +1,2345 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generator Modul Ajar - Madrasah Aliyah Ar-Ridho</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 50%, #3d7ab5 100%);
+        }
+        
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+        
+        .input-focus:focus {
+            box-shadow: 0 0 0 3px rgba(45, 90, 135, 0.2);
+        }
+        
+        .section-card {
+            background: linear-gradient(to bottom right, #ffffff, #f8fafc);
+            border-left: 4px solid #2d5a87;
+        }
+        
+        .print-section {
+            page-break-inside: avoid;
+        }
+        
+        @media print {
+            .no-print { display: none !important; }
+            .print-section { break-inside: avoid; }
+            body { font-size: 11pt; }
+        }
+        
+        .tab-active {
+            background: linear-gradient(135deg, #2d5a87, #3d7ab5);
+            color: white;
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full bg-slate-50">
+  <div id="app" class="h-full w-full overflow-auto scrollbar-thin"><!-- Header -->
+   <header class="gradient-bg text-white py-6 px-4 no-print">
+    <div class="max-w-6xl mx-auto">
+     <div class="flex items-center gap-3 mb-2">
+      <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+       <svg class="w-7 h-7" fill="currentColor" viewbox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
+       </svg>
+      </div>
+      <div>
+       <h1 id="main-title" class="text-2xl md:text-3xl font-bold tracking-tight">Generator Modul Ajar</h1>
+       <p id="subtitle" class="text-blue-100 text-sm md:text-base font-medium">Madrasah Aliyah Ar-Ridho</p>
+      </div>
+     </div>
+     <p class="text-blue-100 text-sm mt-3 max-w-2xl">Susun modul ajar lengkap dengan standar terkini. Isi formulir di bawah, lalu lihat hasil modul yang siap dicetak.</p>
+    </div>
+   </header><!-- Navigation Tabs -->
+   <nav class="no-print sticky top-0 z-10 bg-white border-b border-slate-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4">
+     <div class="flex gap-1 py-2"><button id="tab-input" onclick="switchTab('input')" class="tab-active px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center gap-2">
+       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+       </svg> Input Data </button> <button id="tab-preview" onclick="switchTab('preview')" class="px-4 py-2.5 rounded-lg font-semibold text-sm text-slate-600 hover:bg-slate-100 transition-all duration-200 flex items-center gap-2">
+       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+       </svg> Lihat Modul </button> <button id="tab-soal" onclick="switchTab('soal')" class="px-4 py-2.5 rounded-lg font-semibold text-sm text-slate-600 hover:bg-slate-100 transition-all duration-200 flex items-center gap-2">
+       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+       </svg> Buat Soal </button> <button id="tab-history" onclick="switchTab('history')" class="px-4 py-2.5 rounded-lg font-semibold text-sm text-slate-600 hover:bg-slate-100 transition-all duration-200 flex items-center gap-2">
+       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+       </svg> Riwayat <span id="history-count" class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full text-xs">0</span> </button>
+     </div>
+    </div>
+   </nav><!-- Main Content -->
+   <main class="max-w-6xl mx-auto px-4 py-6"><!-- Input Section -->
+    <section id="section-input" class="animate-fade-in">
+     <form id="modul-form" class="space-y-6"><!-- Card: Data Dasar -->
+      <div class="bg-white rounded-2xl card-shadow p-6">
+       <div class="flex items-center gap-3 mb-5">
+        <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+         <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+         </svg>
+        </div>
+        <h2 class="text-lg font-bold text-slate-800">Data Dasar Pembelajaran</h2>
+       </div>
+       <div class="grid md:grid-cols-2 gap-5">
+        <div><label class="block text-sm font-semibold text-slate-700 mb-2">Kurikulum *</label> <select id="kurikulum" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 input-focus focus:outline-none focus:border-blue-400 transition-all"> <option value="">Pilih Kurikulum</option> <option value="Kurikulum Merdeka">Kurikulum Merdeka</option> <option value="Kurikulum 2013">Kurikulum 2013 (K13)</option> <option value="Kurikulum 2013 Revisi">Kurikulum 2013 Revisi</option> <option value="KTSP">KTSP (Kurikulum Tingkat Satuan Pendidikan)</option> <option value="KBC">KBC (Kurikulum Berbasis Cinta)</option> </select>
+        </div>
+        <div><label class="block text-sm font-semibold text-slate-700 mb-2">Mata Pelajaran *</label> <select id="mata_pelajaran" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 input-focus focus:outline-none focus:border-blue-400 transition-all"> <option value="">Pilih Mata Pelajaran</option> <option value="Bahasa Indonesia">Bahasa Indonesia</option> <option value="Matematika">Matematika</option> <option value="Sosiologi">Sosiologi</option> <option value="Ekonomi">Ekonomi</option> <option value="Geografi">Geografi</option> <option value="Ad-Dasuki">Ad-Dasuki</option> <option value="Sejarah Indonesia">Sejarah Indonesia</option> <option value="PKN">PKN</option> <option value="Bahasa Arab">Bahasa Arab</option> <option value="Bahasa Inggris">Bahasa Inggris</option> <option value="Pencak Silat">Pencak Silat</option> <option value="Desain Visual">Desain Visual</option> <option value="Pramuka">Pramuka</option> <option value="Uqutulujjin">Uqutulujjin</option> <option value="Fathul Qorib">Fathul Qorib</option> <option value="Arba'una Haditsan">Arba'una Haditsan</option> <option value="Kholasoh">Kholasoh</option> <option value="BMK">BMK</option> </select>
+        </div>
+        <div><label class="block text-sm font-semibold text-slate-700 mb-2">Kelas *</label> <select id="fase_kelas" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 input-focus focus:outline-none focus:border-blue-400 transition-all"> <option value="">Pilih Kelas</option> <option value="Kelas 10">Kelas 10</option> <option value="Kelas 11">Kelas 11</option> <option value="Kelas 12">Kelas 12</option> </select>
+        </div>
+        <div class="md:col-span-2"><label class="block text-sm font-semibold text-slate-700 mb-2">Topik / Materi Pembelajaran *</label> <input type="text" id="topik_materi" required placeholder="Contoh: Bagian Tubuh Tumbuhan dan Fungsinya" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 input-focus focus:outline-none focus:border-blue-400 transition-all">
+        </div>
+        <div><label class="block text-sm font-semibold text-slate-700 mb-2">Alokasi Waktu *</label> <select id="alokasi_waktu" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 input-focus focus:outline-none focus:border-blue-400 transition-all"> <option value="">Pilih Alokasi Waktu</option> <option value="1 x 45 Menit">1 x 45 Menit (1 JP)</option> <option value="2 x 45 Menit">2 x 45 Menit (2 JP)</option> <option value="3 x 45 Menit">3 x 45 Menit (3 JP)</option> <option value="4 x 45 Menit">4 x 45 Menit (4 JP)</option> </select>
+        </div>
+        <div><label class="block text-sm font-semibold text-slate-700 mb-2">Model Pembelajaran *</label> <select id="model_pembelajaran" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 input-focus focus:outline-none focus:border-blue-400 transition-all"> <option value="">Pilih Model Pembelajaran</option> <option value="Problem Based Learning">Problem Based Learning (PBL)</option> <option value="Project Based Learning">Project Based Learning (PjBL)</option> <option value="Discovery Learning">Discovery Learning</option> <option value="Inquiry Learning">Inquiry Learning</option> <option value="Cooperative Learning">Cooperative Learning</option> <option value="Contextual Teaching and Learning">Contextual Teaching and Learning</option> </select>
+        </div>
+        <div class="md:col-span-2"><label class="block text-sm font-semibold text-slate-700 mb-2">Karakteristik Peserta Didik *</label> <textarea id="karakteristik_siswa" required rows="3" placeholder="Contoh: Siswa aktif dan antusias, sebagian besar sudah lancar membaca, beberapa siswa membutuhkan bimbingan tambahan dalam menulis" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 input-focus focus:outline-none focus:border-blue-400 transition-all resize-none"></textarea>
+        </div>
+        <div class="md:col-span-2"><label class="block text-sm font-semibold text-slate-700 mb-2">Nama Penyusun *</label> <input type="text" id="nama_penyusun" required placeholder="Contoh: Ahmad Fauzi, S.Pd." class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 input-focus focus:outline-none focus:border-blue-400 transition-all">
+        </div>
+       </div>
+      </div><!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-3"><button type="submit" id="btn-generate" class="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-200">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg><span>Generate Modul Ajar</span> </button> <button type="button" onclick="resetForm()" class="px-6 py-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg> Reset </button>
+      </div>
+     </form>
+    </section><!-- Preview Section -->
+    <section id="section-preview" class="hidden animate-fade-in">
+     <div id="modul-output" class="bg-white rounded-2xl card-shadow overflow-hidden"><!-- Will be populated by JavaScript -->
+     </div><!-- Copy Button -->
+     <div class="no-print mt-6 flex flex-col sm:flex-row gap-3"><button onclick="copyModulContent()" class="flex-1 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-emerald-200">
+       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+       </svg> Salin Modul </button> <button onclick="switchTab('input')" class="px-6 py-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2">
+       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+       </svg> Kembali Edit </button>
+     </div>
+    </section><!-- Soal Section -->
+    <section id="section-soal" class="hidden animate-fade-in">
+     <form id="soal-form" class="space-y-6"><!-- Card: Pengaturan Soal -->
+      <div class="bg-white rounded-2xl card-shadow p-6">
+       <div class="flex items-center gap-3 mb-5">
+        <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
+         <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+         </svg>
+        </div>
+        <h2 class="text-lg font-bold text-slate-800">Generate Soal Evaluasi</h2>
+       </div>
+       <div class="grid md:grid-cols-2 gap-5">
+        <div><label class="block text-sm font-semibold text-slate-700 mb-2">Mata Pelajaran *</label> <select id="soal_mapel" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 input-focus focus:outline-none focus:border-purple-400 transition-all"> <option value="">Pilih Mata Pelajaran</option> <option value="Bahasa Indonesia">Bahasa Indonesia</option> <option value="Matematika">Matematika</option> <option value="Sosiologi">Sosiologi</option> <option value="Ekonomi">Ekonomi</option> <option value="Geografi">Geografi</option> <option value="Ad-Dasuki">Ad-Dasuki</option> <option value="Sejarah Indonesia">Sejarah Indonesia</option> <option value="PKN">PKN</option> <option value="Bahasa Arab">Bahasa Arab</option> <option value="Bahasa Inggris">Bahasa Inggris</option> <option value="Pencak Silat">Pencak Silat</option> <option value="Desain Visual">Desain Visual</option> <option value="Pramuka">Pramuka</option> <option value="Uqutulujjin">Uqutulujjin</option> <option value="Fathul Qorib">Fathul Qorib</option> <option value="Arba'una Haditsan">Arba'una Haditsan</option> <option value="Kholasoh">Kholasoh</option> <option value="BMK">BMK</option> </select>
+        </div>
+        <div><label class="block text-sm font-semibold text-slate-700 mb-2">Kelas *</label> <select id="soal_kelas" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 input-focus focus:outline-none focus:border-purple-400 transition-all"> <option value="">Pilih Kelas</option> <option value="Kelas 10">Kelas 10</option> <option value="Kelas 11">Kelas 11</option> <option value="Kelas 12">Kelas 12</option> </select>
+        </div>
+        <div class="md:col-span-2"><label class="block text-sm font-semibold text-slate-700 mb-2">Topik / Materi *</label> <input type="text" id="soal_topik" required placeholder="Contoh: Struktur Teks Anekdot" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 input-focus focus:outline-none focus:border-purple-400 transition-all">
+        </div>
+        <div><label class="block text-sm font-semibold text-slate-700 mb-2">Jenis Soal *</label> <select id="soal_jenis" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 input-focus focus:outline-none focus:border-purple-400 transition-all"> <option value="">Pilih Jenis Soal</option> <option value="Pilihan Ganda">Pilihan Ganda</option> <option value="Esai">Esai</option> <option value="Isian Singkat">Isian Singkat</option> <option value="Benar-Salah">Benar-Salah</option> <option value="Menjodohkan">Menjodohkan</option> </select>
+        </div>
+        <div><label class="block text-sm font-semibold text-slate-700 mb-2">Jumlah Soal *</label> <select id="soal_jumlah" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 input-focus focus:outline-none focus:border-purple-400 transition-all"> <option value="">Pilih Jumlah</option> <option value="5">5 Soal</option> <option value="10">10 Soal</option> <option value="15">15 Soal</option> <option value="20">20 Soal</option> <option value="25">25 Soal</option> </select>
+        </div>
+        <div><label class="block text-sm font-semibold text-slate-700 mb-2">Tingkat Kesulitan *</label> <select id="soal_kesulitan" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 input-focus focus:outline-none focus:border-purple-400 transition-all"> <option value="">Pilih Tingkat</option> <option value="Mudah">Mudah (C1-C2)</option> <option value="Sedang">Sedang (C3-C4)</option> <option value="Sulit">Sulit (C5-C6)</option> <option value="Campuran">Campuran</option> </select>
+        </div>
+        <div><label class="block text-sm font-semibold text-slate-700 mb-2">Format Penilaian *</label> <select id="soal_penilaian" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 input-focus focus:outline-none focus:border-purple-400 transition-all"> <option value="">Pilih Format</option> <option value="Dengan Kunci Jawaban">Dengan Kunci Jawaban</option> <option value="Dengan Rubrik Penilaian">Dengan Rubrik Penilaian</option> <option value="Lengkap (Kunci + Rubrik)">Lengkap (Kunci + Rubrik)</option> </select>
+        </div>
+       </div>
+      </div><!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-3"><button type="submit" id="btn-generate-soal" class="flex-1 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-purple-200">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg><span>Generate Soal</span> </button> <button type="button" onclick="resetSoalForm()" class="px-6 py-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg> Reset </button>
+      </div>
+     </form><!-- Soal Output -->
+     <div id="soal-output" class="hidden mt-6 bg-white rounded-2xl card-shadow overflow-hidden"><!-- Will be populated by JavaScript -->
+     </div><!-- Copy Button for Soal -->
+     <div id="soal-actions" class="hidden no-print mt-6 flex flex-col sm:flex-row gap-3"><button onclick="copySoalContent()" class="flex-1 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-emerald-200">
+       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+       </svg> Salin Soal </button>
+     </div>
+    </section><!-- History Section -->
+    <section id="section-history" class="hidden animate-fade-in">
+     <div class="bg-white rounded-2xl card-shadow p-6">
+      <div class="flex items-center justify-between mb-5">
+       <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
+         <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+         </svg>
+        </div>
+        <h2 class="text-lg font-bold text-slate-800">Riwayat Modul Tersimpan</h2>
+       </div>
+      </div>
+      <div id="history-list" class="space-y-3"><!-- History items will be rendered here -->
+      </div>
+      <div id="empty-history" class="text-center py-12 hidden">
+       <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+       </div>
+       <p class="text-slate-500 font-medium">Belum ada modul tersimpan</p>
+       <p class="text-slate-400 text-sm mt-1">Modul yang Anda generate akan tersimpan di sini</p>
+      </div>
+     </div>
+    </section>
+   </main><!-- Footer -->
+   <footer class="no-print bg-slate-800 text-slate-300 py-6 px-4 mt-8">
+    <div class="max-w-6xl mx-auto text-center">
+     <p class="text-sm">Generator Modul Ajar</p>
+     <p class="text-xs mt-1 text-slate-400">Dibuat untuk membantu guru Indonesia menyusun modul pembelajaran berkualitas</p>
+    </div>
+   </footer>
+  </div><!-- Loading Overlay -->
+  <div id="loading-overlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+   <div class="bg-white rounded-2xl p-8 text-center shadow-2xl">
+    <div class="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+    <p class="text-slate-700 font-semibold">Menyusun Modul Ajar...</p>
+    <p class="text-slate-500 text-sm mt-1">Mohon tunggu sebentar</p>
+   </div>
+  </div><!-- Delete Confirmation -->
+  <div id="delete-confirm" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+   <div class="bg-white rounded-2xl p-6 max-w-sm mx-4 shadow-2xl">
+    <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+     <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+     </svg>
+    </div>
+    <h3 class="text-lg font-bold text-slate-800 text-center mb-2">Hapus Modul?</h3>
+    <p class="text-slate-500 text-sm text-center mb-6">Modul yang dihapus tidak dapat dikembalikan</p>
+    <div class="flex gap-3"><button onclick="cancelDelete()" class="flex-1 px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl transition-all">Batal</button> <button onclick="confirmDelete()" class="flex-1 px-4 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl transition-all">Hapus</button>
+    </div>
+   </div>
+  </div>
+  <script>
+        // Global state
+        let savedModules = [];
+        let currentModulData = null;
+        let deleteTargetId = null;
+        let isLoading = false;
+
+        // Default config for Element SDK
+        const defaultConfig = {
+            app_title: 'Generator Modul Ajar',
+            subtitle_text: 'Madrasah Aliyah Ar-Ridho',
+            primary_color: '#1e3a5f',
+            secondary_color: '#2d5a87',
+            accent_color: '#3d7ab5',
+            text_color: '#1e293b',
+            surface_color: '#ffffff'
+        };
+
+        // Data handler for Data SDK
+        const dataHandler = {
+            onDataChanged(data) {
+                savedModules = data || [];
+                updateHistoryUI();
+            }
+        };
+
+        // Initialize SDKs
+        async function initApp() {
+            // Initialize Element SDK
+            if (window.elementSdk) {
+                window.elementSdk.init({
+                    defaultConfig,
+                    onConfigChange: async (config) => {
+                        applyConfig(config);
+                    },
+                    mapToCapabilities: (config) => ({
+                        recolorables: [
+                            {
+                                get: () => config.primary_color || defaultConfig.primary_color,
+                                set: (value) => window.elementSdk.setConfig({ primary_color: value })
+                            },
+                            {
+                                get: () => config.secondary_color || defaultConfig.secondary_color,
+                                set: (value) => window.elementSdk.setConfig({ secondary_color: value })
+                            },
+                            {
+                                get: () => config.accent_color || defaultConfig.accent_color,
+                                set: (value) => window.elementSdk.setConfig({ accent_color: value })
+                            },
+                            {
+                                get: () => config.text_color || defaultConfig.text_color,
+                                set: (value) => window.elementSdk.setConfig({ text_color: value })
+                            },
+                            {
+                                get: () => config.surface_color || defaultConfig.surface_color,
+                                set: (value) => window.elementSdk.setConfig({ surface_color: value })
+                            }
+                        ],
+                        borderables: [],
+                        fontEditable: undefined,
+                        fontSizeable: undefined
+                    }),
+                    mapToEditPanelValues: (config) => new Map([
+                        ['app_title', config.app_title || defaultConfig.app_title],
+                        ['subtitle_text', config.subtitle_text || defaultConfig.subtitle_text]
+                    ])
+                });
+            }
+
+            // Initialize Data SDK
+            if (window.dataSdk) {
+                const result = await window.dataSdk.init(dataHandler);
+                if (!result.isOk) {
+                    console.error('Failed to initialize Data SDK');
+                }
+            }
+
+            // Apply initial config
+            applyConfig(defaultConfig);
+        }
+
+        // Apply config to UI
+        function applyConfig(config) {
+            const title = document.getElementById('main-title');
+            const subtitle = document.getElementById('subtitle');
+            
+            if (title) title.textContent = config.app_title || defaultConfig.app_title;
+            if (subtitle) subtitle.textContent = config.subtitle_text || defaultConfig.subtitle_text;
+
+            // Apply colors
+            const primaryColor = config.primary_color || defaultConfig.primary_color;
+            const secondaryColor = config.secondary_color || defaultConfig.secondary_color;
+            const accentColor = config.accent_color || defaultConfig.accent_color;
+            
+            document.documentElement.style.setProperty('--primary-color', primaryColor);
+            document.documentElement.style.setProperty('--secondary-color', secondaryColor);
+            document.documentElement.style.setProperty('--accent-color', accentColor);
+
+            // Update gradient backgrounds
+            const header = document.querySelector('.gradient-bg');
+            if (header) {
+                header.style.background = `linear-gradient(135deg, ${primaryColor} 0%, ${secondaryColor} 50%, ${accentColor} 100%)`;
+            }
+
+            // Update active tab color
+            const activeTab = document.querySelector('.tab-active');
+            if (activeTab) {
+                activeTab.style.background = `linear-gradient(135deg, ${secondaryColor}, ${accentColor})`;
+            }
+        }
+
+        // Tab switching
+        function switchTab(tab) {
+            const tabs = ['input', 'preview', 'soal', 'history'];
+            const config = window.elementSdk?.config || defaultConfig;
+            const secondaryColor = config.secondary_color || defaultConfig.secondary_color;
+            const accentColor = config.accent_color || defaultConfig.accent_color;
+            
+            tabs.forEach(t => {
+                const tabBtn = document.getElementById(`tab-${t}`);
+                const section = document.getElementById(`section-${t}`);
+                
+                if (t === tab) {
+                    tabBtn.classList.add('tab-active');
+                    tabBtn.classList.remove('text-slate-600', 'hover:bg-slate-100');
+                    tabBtn.style.background = `linear-gradient(135deg, ${secondaryColor}, ${accentColor})`;
+                    tabBtn.style.color = 'white';
+                    section.classList.remove('hidden');
+                } else {
+                    tabBtn.classList.remove('tab-active');
+                    tabBtn.classList.add('text-slate-600', 'hover:bg-slate-100');
+                    tabBtn.style.background = '';
+                    tabBtn.style.color = '';
+                    section.classList.add('hidden');
+                }
+            });
+        }
+
+        // Update history UI
+        function updateHistoryUI() {
+            const historyList = document.getElementById('history-list');
+            const emptyHistory = document.getElementById('empty-history');
+            const historyCount = document.getElementById('history-count');
+            
+            historyCount.textContent = savedModules.length;
+            
+            if (savedModules.length === 0) {
+                historyList.innerHTML = '';
+                emptyHistory.classList.remove('hidden');
+                return;
+            }
+            
+            emptyHistory.classList.add('hidden');
+            
+            // Update existing items or create new ones
+            const existingItems = new Map(
+                [...historyList.children].map(el => [el.dataset.id, el])
+            );
+            
+            const sortedModules = [...savedModules].sort((a, b) => 
+                new Date(b.created_at) - new Date(a.created_at)
+            );
+            
+            sortedModules.forEach((modul, index) => {
+                const id = modul.__backendId;
+                if (existingItems.has(id)) {
+                    // Update existing item
+                    const item = existingItems.get(id);
+                    updateHistoryItem(item, modul);
+                    existingItems.delete(id);
+                } else {
+                    // Create new item
+                    const item = createHistoryItem(modul);
+                    if (index === 0) {
+                        historyList.prepend(item);
+                    } else {
+                        const previousItem = historyList.children[index - 1];
+                        if (previousItem) {
+                            previousItem.after(item);
+                        } else {
+                            historyList.appendChild(item);
+                        }
+                    }
+                }
+            });
+            
+            // Remove deleted items
+            existingItems.forEach(el => el.remove());
+        }
+
+        function createHistoryItem(modul) {
+            const item = document.createElement('div');
+            item.dataset.id = modul.__backendId;
+            item.className = 'border border-slate-200 rounded-xl p-4 hover:border-blue-300 hover:bg-blue-50/50 transition-all cursor-pointer group';
+            updateHistoryItem(item, modul);
+            return item;
+        }
+
+        function updateHistoryItem(item, modul) {
+            const date = new Date(modul.created_at);
+            const formattedDate = date.toLocaleDateString('id-ID', { 
+                day: 'numeric', 
+                month: 'short', 
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            item.innerHTML = `
+                <div class="flex items-start justify-between gap-4">
+                    <div class="flex-1 min-w-0" onclick="loadModul('${modul.__backendId}')">
+                        <h3 class="font-bold text-slate-800 truncate">${escapeHtml(modul.topik_materi)}</h3>
+                        <p class="text-sm text-slate-500 mt-1">${escapeHtml(modul.mata_pelajaran)} • ${escapeHtml(modul.fase_kelas)}</p>
+                        <p class="text-xs text-slate-400 mt-1.5"><span class="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">${escapeHtml(modul.kurikulum || 'Kurikulum Merdeka')}</span></p>
+                        <p class="text-xs text-slate-400 mt-2">${formattedDate}</p>
+                    </div>
+                    <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button onclick="event.stopPropagation(); loadModul('${modul.__backendId}')" class="p-2 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 transition-all" title="Lihat Modul">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                        </button>
+                        <button onclick="event.stopPropagation(); showDeleteConfirm('${modul.__backendId}')" class="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-all" title="Hapus">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Load modul from history
+        function loadModul(id) {
+            const modul = savedModules.find(m => m.__backendId === id);
+            if (modul) {
+                currentModulData = modul;
+                generateModulPreview(modul);
+                switchTab('preview');
+            }
+        }
+
+        // Delete confirmation
+        function showDeleteConfirm(id) {
+            deleteTargetId = id;
+            document.getElementById('delete-confirm').classList.remove('hidden');
+        }
+
+        function cancelDelete() {
+            deleteTargetId = null;
+            document.getElementById('delete-confirm').classList.add('hidden');
+        }
+
+        async function confirmDelete() {
+            if (!deleteTargetId || isLoading) return;
+            
+            const modul = savedModules.find(m => m.__backendId === deleteTargetId);
+            if (!modul) {
+                cancelDelete();
+                return;
+            }
+            
+            isLoading = true;
+            
+            if (window.dataSdk) {
+                const result = await window.dataSdk.delete(modul);
+                if (!result.isOk) {
+                    console.error('Failed to delete modul');
+                }
+            }
+            
+            isLoading = false;
+            cancelDelete();
+        }
+
+        // Form handling
+        document.getElementById('modul-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (isLoading) return;
+            
+            // Check limit
+            if (savedModules.length >= 999) {
+                showToast('Batas penyimpanan tercapai (999 modul). Hapus beberapa modul untuk melanjutkan.', 'error');
+                return;
+            }
+            
+            const formData = {
+                kurikulum: document.getElementById('kurikulum').value,
+                mata_pelajaran: document.getElementById('mata_pelajaran').value,
+                fase_kelas: document.getElementById('fase_kelas').value,
+                topik_materi: document.getElementById('topik_materi').value,
+                alokasi_waktu: document.getElementById('alokasi_waktu').value,
+                model_pembelajaran: document.getElementById('model_pembelajaran').value,
+                karakteristik_siswa: document.getElementById('karakteristik_siswa').value,
+                nama_penyusun: document.getElementById('nama_penyusun').value,
+                created_at: new Date().toISOString()
+            };
+            
+            // Validate
+            for (const [key, value] of Object.entries(formData)) {
+                if (!value && key !== 'created_at') {
+                    showToast('Mohon lengkapi semua field yang diperlukan', 'error');
+                    return;
+                }
+            }
+            
+            showLoading(true);
+            isLoading = true;
+            
+            // Simulate processing time for better UX
+            await new Promise(resolve => setTimeout(resolve, 800));
+            
+            // Save to Data SDK
+            if (window.dataSdk) {
+                const result = await window.dataSdk.create(formData);
+                if (!result.isOk) {
+                    showLoading(false);
+                    isLoading = false;
+                    showToast('Gagal menyimpan modul. Silakan coba lagi.', 'error');
+                    return;
+                }
+            }
+            
+            currentModulData = formData;
+            generateModulPreview(formData);
+            
+            showLoading(false);
+            isLoading = false;
+            switchTab('preview');
+            showToast('Modul berhasil dibuat dan disimpan!', 'success');
+        });
+
+        // Reset form
+        function resetForm() {
+            document.getElementById('modul-form').reset();
+        }
+
+        // Show/hide loading
+        function showLoading(show) {
+            const overlay = document.getElementById('loading-overlay');
+            if (show) {
+                overlay.classList.remove('hidden');
+            } else {
+                overlay.classList.add('hidden');
+            }
+        }
+
+        // Toast notification
+        function showToast(message, type = 'info') {
+            const existingToast = document.querySelector('.toast-notification');
+            if (existingToast) existingToast.remove();
+            
+            const toast = document.createElement('div');
+            toast.className = `toast-notification fixed bottom-4 right-4 px-6 py-4 rounded-xl shadow-2xl z-50 animate-fade-in flex items-center gap-3 ${
+                type === 'success' ? 'bg-emerald-600 text-white' : 
+                type === 'error' ? 'bg-red-600 text-white' : 
+                'bg-slate-800 text-white'
+            }`;
+            
+            const icon = type === 'success' 
+                ? '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>'
+                : type === 'error'
+                ? '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>'
+                : '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+            
+            toast.innerHTML = `${icon}<span class="font-medium">${message}</span>`;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(10px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text || '';
+            return div.innerHTML;
+        }
+
+        // Copy modul content to clipboard
+        async function copyModulContent() {
+            const output = document.getElementById('modul-output');
+            if (!output || !output.innerHTML.trim()) {
+                showToast('Tidak ada modul untuk disalin', 'error');
+                return;
+            }
+
+            try {
+                // Create a temporary element to get clean text
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = output.innerHTML;
+                
+                // Remove no-print elements
+                const noPrintElements = tempDiv.querySelectorAll('.no-print');
+                noPrintElements.forEach(el => el.remove());
+                
+                // Get text content
+                const textContent = tempDiv.innerText || tempDiv.textContent;
+                
+                // Copy to clipboard using modern API
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(textContent);
+                    showToast('Modul berhasil disalin ke clipboard!', 'success');
+                } else {
+                    // Fallback for older browsers
+                    const textarea = document.createElement('textarea');
+                    textarea.value = textContent;
+                    textarea.style.position = 'fixed';
+                    textarea.style.opacity = '0';
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    showToast('Modul berhasil disalin ke clipboard!', 'success');
+                }
+            } catch (err) {
+                console.error('Failed to copy:', err);
+                // Final fallback - try to select the text
+                try {
+                    const range = document.createRange();
+                    range.selectNodeContents(output);
+                    const selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    showToast('Teks telah dipilih. Tekan Ctrl+C untuk menyalin.', 'info');
+                } catch (selectErr) {
+                    showToast('Gagal menyalin modul. Silakan pilih teks secara manual.', 'error');
+                }
+            }
+        }
+
+        // Generate modul content based on input
+        function generateModulPreview(data) {
+            const output = document.getElementById('modul-output');
+            const content = generateModulContent(data);
+            output.innerHTML = content;
+        }
+
+        // Generate comprehensive modul content
+        function generateModulContent(data) {
+            const { kurikulum, mata_pelajaran, fase_kelas, topik_materi, alokasi_waktu, model_pembelajaran, karakteristik_siswa } = data;
+            
+            // Calculate time breakdown
+            const timeMatch = alokasi_waktu.match(/(\d+)\s*x\s*(\d+)/);
+            let totalMinutes = 70;
+            if (timeMatch) {
+                totalMinutes = parseInt(timeMatch[1]) * parseInt(timeMatch[2]);
+            }
+            const pendahuluanTime = Math.round(totalMinutes * 0.1);
+            const intiTime = Math.round(totalMinutes * 0.7);
+            const penutupTime = Math.round(totalMinutes * 0.2);
+
+            // Get phase info
+            const phaseInfo = getPhaseInfo(fase_kelas);
+            
+            // Get subject-specific content
+            const subjectContent = getSubjectContent(mata_pelajaran, topik_materi, phaseInfo);
+            
+            // Get model-specific activities
+            const modelActivities = getModelActivities(model_pembelajaran, topik_materi, mata_pelajaran, intiTime);
+
+            return `
+                <div class="p-6 md:p-8">
+                    <!-- Header -->
+                    <div class="text-center mb-8 pb-6 border-b-2 border-slate-200 print-section">
+                        <h1 class="text-2xl md:text-3xl font-bold text-slate-800 mb-2">MODUL AJAR</h1>
+                        <div class="inline-block px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold mb-3">${escapeHtml(kurikulum)}</div>
+                        <h2 class="text-xl md:text-2xl font-bold text-blue-700">${escapeHtml(mata_pelajaran)}</h2>
+                        <p class="text-lg text-slate-600 mt-2 font-medium">${escapeHtml(topik_materi)}</p>
+                        <p class="text-slate-500 mt-1">${escapeHtml(fase_kelas)}</p>
+                    </div>
+
+                    <!-- I. INFORMASI UMUM -->
+                    <div class="section-card rounded-xl p-5 mb-6 print-section">
+                        <h3 class="text-lg font-bold text-blue-800 mb-4 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center text-sm font-bold">I</span>
+                            INFORMASI UMUM
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <!-- 1. Identitas Modul -->
+                            <div class="bg-white rounded-lg p-4 border border-slate-100">
+                                <h4 class="font-bold text-slate-700 mb-3">1. Identitas Modul</h4>
+                                <div class="grid md:grid-cols-2 gap-3 text-sm">
+                                    <div class="flex"><span class="w-32 text-slate-500">Kurikulum</span><span class="text-slate-700">: ${escapeHtml(kurikulum)}</span></div>
+                                    <div class="flex"><span class="w-32 text-slate-500">Penyusun</span><span class="text-slate-700">: ${escapeHtml(data.nama_penyusun || '.................................')}</span></div>
+                                    <div class="flex"><span class="w-32 text-slate-500">Instansi</span><span class="text-slate-700">: .................................</span></div>
+                                    <div class="flex"><span class="w-32 text-slate-500">Tahun Pelajaran</span><span class="text-slate-700">: ${new Date().getFullYear()}/${new Date().getFullYear() + 1}</span></div>
+                                    <div class="flex"><span class="w-32 text-slate-500">Jenjang</span><span class="text-slate-700">: ${phaseInfo.jenjang}</span></div>
+                                    <div class="flex"><span class="w-32 text-slate-500">Mata Pelajaran</span><span class="text-slate-700">: ${escapeHtml(mata_pelajaran)}</span></div>
+                                    <div class="flex"><span class="w-32 text-slate-500">Fase / Kelas</span><span class="text-slate-700">: ${escapeHtml(fase_kelas)}</span></div>
+                                    <div class="flex"><span class="w-32 text-slate-500">Alokasi Waktu</span><span class="text-slate-700">: ${escapeHtml(alokasi_waktu)}</span></div>
+                                    <div class="flex"><span class="w-32 text-slate-500">Model Pembelajaran</span><span class="text-slate-700">: ${escapeHtml(model_pembelajaran)}</span></div>
+                                </div>
+                            </div>
+
+                            <!-- 2. Kompetensi Awal -->
+                            <div class="bg-white rounded-lg p-4 border border-slate-100">
+                                <h4 class="font-bold text-slate-700 mb-2">2. Kompetensi Awal</h4>
+                                <p class="text-slate-600 text-sm leading-relaxed">${subjectContent.kompetensiAwal}</p>
+                            </div>
+
+                            <!-- 3. Profil Pelajar Pancasila -->
+                            <div class="bg-white rounded-lg p-4 border border-slate-100">
+                                <h4 class="font-bold text-slate-700 mb-2">3. Profil Pelajar Pancasila</h4>
+                                <div class="flex flex-wrap gap-2 mt-2">
+                                    ${subjectContent.profilPelajar.map(p => `<span class="px-3 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">${p}</span>`).join('')}
+                                </div>
+                            </div>
+
+                            <!-- 4. Sarana & Prasarana -->
+                            <div class="bg-white rounded-lg p-4 border border-slate-100">
+                                <h4 class="font-bold text-slate-700 mb-2">4. Sarana & Prasarana</h4>
+                                <ul class="text-slate-600 text-sm space-y-1">
+                                    ${subjectContent.sarana.map(s => `<li class="flex items-start gap-2"><span class="text-blue-500 mt-0.5">•</span>${s}</li>`).join('')}
+                                </ul>
+                            </div>
+
+                            <!-- 5. Target Peserta Didik -->
+                            <div class="bg-white rounded-lg p-4 border border-slate-100">
+                                <h4 class="font-bold text-slate-700 mb-2">5. Target Peserta Didik</h4>
+                                <p class="text-slate-600 text-sm">Peserta didik reguler/tipikal. ${escapeHtml(karakteristik_siswa)}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- II. KOMPONEN INTI -->
+                    <div class="section-card rounded-xl p-5 mb-6 print-section">
+                        <h3 class="text-lg font-bold text-blue-800 mb-4 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center text-sm font-bold">II</span>
+                            KOMPONEN INTI
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <!-- 1. Tujuan Pembelajaran -->
+                            <div class="bg-white rounded-lg p-4 border border-slate-100">
+                                <h4 class="font-bold text-slate-700 mb-2">1. Tujuan Pembelajaran</h4>
+                                <p class="text-slate-600 text-sm mb-2 italic">Dengan prinsip ABCD (Audience, Behavior, Condition, Degree):</p>
+                                <ol class="text-slate-600 text-sm space-y-2">
+                                    ${subjectContent.tujuanPembelajaran.map((t, i) => `<li class="flex items-start gap-2"><span class="font-bold text-blue-600">${i + 1}.</span>${t}</li>`).join('')}
+                                </ol>
+                            </div>
+
+                            <!-- 2. Pemahaman Bermakna -->
+                            <div class="bg-white rounded-lg p-4 border border-slate-100">
+                                <h4 class="font-bold text-slate-700 mb-2">2. Pemahaman Bermakna</h4>
+                                <div class="bg-amber-50 border-l-4 border-amber-400 p-3 rounded-r-lg">
+                                    <p class="text-slate-700 text-sm leading-relaxed">${subjectContent.pemahamanBermakna}</p>
+                                </div>
+                            </div>
+
+                            <!-- 3. Pertanyaan Pemantik -->
+                            <div class="bg-white rounded-lg p-4 border border-slate-100">
+                                <h4 class="font-bold text-slate-700 mb-2">3. Pertanyaan Pemantik</h4>
+                                <ol class="text-slate-600 text-sm space-y-2">
+                                    ${subjectContent.pertanyaanPemantik.map((p, i) => `<li class="flex items-start gap-2"><span class="font-bold text-blue-600">${i + 1}.</span>${p}</li>`).join('')}
+                                </ol>
+                            </div>
+
+                            <!-- 4. Kegiatan Pembelajaran -->
+                            <div class="bg-white rounded-lg p-4 border border-slate-100">
+                                <h4 class="font-bold text-slate-700 mb-3">4. Kegiatan Pembelajaran</h4>
+                                
+                                <!-- Pendahuluan -->
+                                <div class="mb-4 bg-emerald-50 rounded-lg p-4">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="px-3 py-1 bg-emerald-600 text-white text-xs font-bold rounded-full">PENDAHULUAN</span>
+                                        <span class="text-emerald-700 text-sm font-medium">(± ${pendahuluanTime} menit)</span>
+                                    </div>
+                                    <ol class="text-slate-600 text-sm space-y-1.5">
+                                        <li class="flex items-start gap-2"><span class="text-emerald-600 font-bold">a.</span>Guru membuka pelajaran dengan salam dan doa bersama</li>
+                                        <li class="flex items-start gap-2"><span class="text-emerald-600 font-bold">b.</span>Guru memeriksa kehadiran dan kesiapan peserta didik</li>
+                                        <li class="flex items-start gap-2"><span class="text-emerald-600 font-bold">c.</span><strong>Apersepsi:</strong> Guru mengaitkan materi dengan pengalaman peserta didik sehari-hari</li>
+                                        <li class="flex items-start gap-2"><span class="text-emerald-600 font-bold">d.</span><strong>Motivasi:</strong> Guru menyampaikan tujuan pembelajaran dan manfaat materi</li>
+                                        <li class="flex items-start gap-2"><span class="text-emerald-600 font-bold">e.</span><strong>Kesepakatan Kelas:</strong> Guru dan peserta didik menyepakati aturan selama pembelajaran</li>
+                                    </ol>
+                                </div>
+
+                                <!-- Kegiatan Inti -->
+                                <div class="mb-4 bg-blue-50 rounded-lg p-4">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded-full">KEGIATAN INTI</span>
+                                        <span class="text-blue-700 text-sm font-medium">(± ${intiTime} menit)</span>
+                                    </div>
+                                    <p class="text-slate-500 text-xs mb-3 italic">Model: ${escapeHtml(model_pembelajaran)}</p>
+                                    ${modelActivities}
+                                    
+                                    <!-- Diferensiasi -->
+                                    <div class="mt-4 pt-4 border-t border-blue-200">
+                                        <p class="font-bold text-blue-800 text-sm mb-2">📚 Pembelajaran Berdiferensiasi:</p>
+                                        <div class="grid md:grid-cols-2 gap-3 text-sm">
+                                            <div class="bg-white p-3 rounded-lg border border-blue-200">
+                                                <p class="font-semibold text-slate-700 mb-1">Diferensiasi Konten:</p>
+                                                <ul class="text-slate-600 text-xs space-y-1">
+                                                    <li>• <strong>Visual:</strong> Media gambar, diagram, dan video</li>
+                                                    <li>• <strong>Auditori:</strong> Penjelasan verbal dan diskusi</li>
+                                                    <li>• <strong>Kinestetik:</strong> Praktik langsung dan aktivitas hands-on</li>
+                                                </ul>
+                                            </div>
+                                            <div class="bg-white p-3 rounded-lg border border-blue-200">
+                                                <p class="font-semibold text-slate-700 mb-1">Diferensiasi Produk:</p>
+                                                <ul class="text-slate-600 text-xs space-y-1">
+                                                    <li>• Presentasi lisan atau tertulis</li>
+                                                    <li>• Poster atau mind map</li>
+                                                    <li>• Demonstrasi atau role play</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Penutup -->
+                                <div class="bg-purple-50 rounded-lg p-4">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="px-3 py-1 bg-purple-600 text-white text-xs font-bold rounded-full">PENUTUP</span>
+                                        <span class="text-purple-700 text-sm font-medium">(± ${penutupTime} menit)</span>
+                                    </div>
+                                    <ol class="text-slate-600 text-sm space-y-1.5">
+                                        <li class="flex items-start gap-2"><span class="text-purple-600 font-bold">a.</span><strong>Refleksi:</strong> Peserta didik menyampaikan apa yang telah dipelajari dan kesulitan yang dialami</li>
+                                        <li class="flex items-start gap-2"><span class="text-purple-600 font-bold">b.</span><strong>Kesimpulan:</strong> Guru dan peserta didik bersama-sama menyimpulkan materi pembelajaran</li>
+                                        <li class="flex items-start gap-2"><span class="text-purple-600 font-bold">c.</span><strong>Tindak Lanjut:</strong> Guru memberikan tugas/PR dan menyampaikan rencana pembelajaran berikutnya</li>
+                                        <li class="flex items-start gap-2"><span class="text-purple-600 font-bold">d.</span>Guru menutup pembelajaran dengan doa dan salam</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- III. ASESMEN -->
+                    <div class="section-card rounded-xl p-5 mb-6 print-section">
+                        <h3 class="text-lg font-bold text-blue-800 mb-4 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center text-sm font-bold">III</span>
+                            ASESMEN
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <!-- 1. Asesmen Diagnostik -->
+                            <div class="bg-white rounded-lg p-4 border border-slate-100">
+                                <h4 class="font-bold text-slate-700 mb-2">1. Asesmen Diagnostik (Awal Pembelajaran)</h4>
+                                <p class="text-slate-600 text-sm mb-2">Pertanyaan lisan untuk mengetahui pengetahuan awal peserta didik:</p>
+                                <ol class="text-slate-600 text-sm space-y-1">
+                                    ${subjectContent.asesmenDiagnostik.map((a, i) => `<li class="flex items-start gap-2"><span class="text-blue-600 font-bold">${i + 1}.</span>${a}</li>`).join('')}
+                                </ol>
+                            </div>
+
+                            <!-- 2. Asesmen Formatif -->
+                            <div class="bg-white rounded-lg p-4 border border-slate-100">
+                                <h4 class="font-bold text-slate-700 mb-2">2. Asesmen Formatif (Selama Proses)</h4>
+                                <ul class="text-slate-600 text-sm space-y-1">
+                                    <li class="flex items-start gap-2"><span class="text-blue-500">•</span>Observasi partisipasi dan keaktifan peserta didik dalam diskusi kelompok</li>
+                                    <li class="flex items-start gap-2"><span class="text-blue-500">•</span>Penilaian Lembar Kerja Peserta Didik (LKPD)</li>
+                                    <li class="flex items-start gap-2"><span class="text-blue-500">•</span>Tanya jawab untuk mengecek pemahaman secara berkala</li>
+                                    <li class="flex items-start gap-2"><span class="text-blue-500">•</span>Penilaian proses kerja sama dan tanggung jawab dalam kelompok</li>
+                                </ul>
+                            </div>
+
+                            <!-- 3. Asesmen Sumatif -->
+                            <div class="bg-white rounded-lg p-4 border border-slate-100">
+                                <h4 class="font-bold text-slate-700 mb-2">3. Asesmen Sumatif (Akhir Pembelajaran)</h4>
+                                <p class="text-slate-600 text-sm mb-3">Soal latihan untuk mengukur pencapaian tujuan pembelajaran:</p>
+                                <div class="bg-slate-50 rounded-lg p-4">
+                                    <ol class="text-slate-700 text-sm space-y-3">
+                                        ${subjectContent.soalSumatif.map((s, i) => `<li class="flex items-start gap-2"><span class="font-bold text-blue-600">${i + 1}.</span>${s}</li>`).join('')}
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <!-- 4. Rubrik Penilaian -->
+                            <div class="bg-white rounded-lg p-4 border border-slate-100">
+                                <h4 class="font-bold text-slate-700 mb-3">4. Rubrik Penilaian</h4>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm border-collapse">
+                                        <thead>
+                                            <tr class="bg-blue-600 text-white">
+                                                <th class="border border-blue-700 px-3 py-2 text-left">Kriteria</th>
+                                                <th class="border border-blue-700 px-3 py-2 text-center">Sangat Baik (4)</th>
+                                                <th class="border border-blue-700 px-3 py-2 text-center">Baik (3)</th>
+                                                <th class="border border-blue-700 px-3 py-2 text-center">Cukup (2)</th>
+                                                <th class="border border-blue-700 px-3 py-2 text-center">Perlu Bimbingan (1)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-slate-600">
+                                            <tr class="bg-white">
+                                                <td class="border border-slate-200 px-3 py-2 font-medium">Pemahaman Konsep</td>
+                                                <td class="border border-slate-200 px-3 py-2 text-center">Memahami seluruh konsep dengan sangat baik</td>
+                                                <td class="border border-slate-200 px-3 py-2 text-center">Memahami sebagian besar konsep</td>
+                                                <td class="border border-slate-200 px-3 py-2 text-center">Memahami sebagian konsep</td>
+                                                <td class="border border-slate-200 px-3 py-2 text-center">Memerlukan bimbingan dalam memahami konsep</td>
+                                            </tr>
+                                            <tr class="bg-slate-50">
+                                                <td class="border border-slate-200 px-3 py-2 font-medium">Partisipasi Aktif</td>
+                                                <td class="border border-slate-200 px-3 py-2 text-center">Selalu aktif dan berkontribusi</td>
+                                                <td class="border border-slate-200 px-3 py-2 text-center">Sering aktif berkontribusi</td>
+                                                <td class="border border-slate-200 px-3 py-2 text-center">Kadang-kadang aktif</td>
+                                                <td class="border border-slate-200 px-3 py-2 text-center">Jarang aktif berpartisipasi</td>
+                                            </tr>
+                                            <tr class="bg-white">
+                                                <td class="border border-slate-200 px-3 py-2 font-medium">Kerja Sama</td>
+                                                <td class="border border-slate-200 px-3 py-2 text-center">Kerja sama sangat baik dengan semua anggota</td>
+                                                <td class="border border-slate-200 px-3 py-2 text-center">Kerja sama baik dengan anggota kelompok</td>
+                                                <td class="border border-slate-200 px-3 py-2 text-center">Cukup dapat bekerja sama</td>
+                                                <td class="border border-slate-200 px-3 py-2 text-center">Kesulitan bekerja sama dalam kelompok</td>
+                                            </tr>
+                                            <tr class="bg-slate-50">
+                                                <td class="border border-slate-200 px-3 py-2 font-medium">Penyelesaian Tugas</td>
+                                                <td class="border border-slate-200 px-3 py-2 text-center">Tugas lengkap dan tepat waktu dengan kualitas tinggi</td>
+                                                <td class="border border-slate-200 px-3 py-2 text-center">Tugas lengkap dan tepat waktu</td>
+                                                <td class="border border-slate-200 px-3 py-2 text-center">Tugas hampir lengkap</td>
+                                                <td class="border border-slate-200 px-3 py-2 text-center">Tugas tidak lengkap atau tidak tepat waktu</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IV. LAMPIRAN -->
+                    <div class="section-card rounded-xl p-5 mb-6 print-section">
+                        <h3 class="text-lg font-bold text-blue-800 mb-4 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center text-sm font-bold">IV</span>
+                            LAMPIRAN
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <!-- 1. Ide LKPD -->
+                            <div class="bg-white rounded-lg p-4 border border-slate-100">
+                                <h4 class="font-bold text-slate-700 mb-2">1. Ide Lembar Kerja Peserta Didik (LKPD)</h4>
+                                <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                                    <p class="text-slate-700 text-sm leading-relaxed">${subjectContent.ideLKPD}</p>
+                                </div>
+                            </div>
+
+                            <!-- 2. Bahan Bacaan -->
+                            <div class="bg-white rounded-lg p-4 border border-slate-100">
+                                <h4 class="font-bold text-slate-700 mb-2">2. Bahan Bacaan Guru & Peserta Didik</h4>
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                    <p class="text-slate-700 text-sm leading-relaxed">${subjectContent.bahanBacaan}</p>
+                                </div>
+                            </div>
+
+                            <!-- 3. Glosarium -->
+                            <div class="bg-white rounded-lg p-4 border border-slate-100">
+                                <h4 class="font-bold text-slate-700 mb-2">3. Glosarium</h4>
+                                <div class="grid md:grid-cols-2 gap-2">
+                                    ${subjectContent.glosarium.map(g => `
+                                        <div class="bg-slate-50 rounded-lg p-3 border border-slate-200">
+                                            <span class="font-bold text-blue-700">${g.kata}</span>
+                                            <span class="text-slate-600 text-sm">: ${g.arti}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="text-center pt-6 border-t border-slate-200 print-section">
+                        <p class="text-slate-500 text-sm">Modul Ajar ini disusun berdasarkan ${escapeHtml(kurikulum)}</p>
+                        <p class="text-slate-400 text-xs mt-1">Dibuat pada: ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Helper functions
+        function getPhaseInfo(faseKelas) {
+            const jenjangMap = {
+                'MA': 'Madrasah Aliyah (MA)'
+            };
+            
+            let jenjang = 'Madrasah Aliyah (MA)';
+            for (const [key, value] of Object.entries(jenjangMap)) {
+                if (faseKelas.includes(key)) {
+                    jenjang = value;
+                    break;
+                }
+            }
+            
+            return { jenjang, faseKelas };
+        }
+
+        function getSubjectContent(mapel, topik, phaseInfo) {
+            // Default content that can be customized based on subject
+            const content = {
+                kompetensiAwal: `Peserta didik telah memiliki pengetahuan dasar tentang ${topik.toLowerCase()}. Peserta didik mampu mengamati dan mendeskripsikan objek atau fenomena sederhana yang berkaitan dengan materi pembelajaran.`,
+                profilPelajar: ['Bernalar Kritis', 'Bergotong Royong', 'Mandiri'],
+                sarana: [
+                    'Papan tulis dan spidol/kapur',
+                    'Lembar Kerja Peserta Didik (LKPD)',
+                    'Media visual (gambar, poster, atau video pembelajaran)',
+                    'Alat peraga sesuai materi',
+                    'Proyektor dan laptop (jika tersedia)'
+                ],
+                tujuanPembelajaran: [
+                    `Setelah mengikuti pembelajaran dengan model yang diterapkan, peserta didik mampu mengidentifikasi konsep-konsep utama tentang ${topik.toLowerCase()} dengan tepat.`,
+                    `Melalui kegiatan diskusi dan eksplorasi, peserta didik mampu menjelaskan karakteristik ${topik.toLowerCase()} dengan bahasa sendiri secara sistematis.`,
+                    `Dengan panduan LKPD, peserta didik mampu menganalisis hubungan antara konsep-konsep dalam ${topik.toLowerCase()} dan penerapannya dalam kehidupan sehari-hari minimal 80% benar.`
+                ],
+                pemahamanBermakna: `Memahami ${topik.toLowerCase()} sangat penting karena materi ini membantu peserta didik mengembangkan kemampuan berpikir kritis dan analitis. Pengetahuan ini dapat diterapkan dalam kehidupan sehari-hari untuk memecahkan masalah dan membuat keputusan yang lebih baik.`,
+                pertanyaanPemantik: [
+                    `Apa yang kalian ketahui tentang ${topik.toLowerCase()}?`,
+                    `Pernahkah kalian melihat atau mengalami hal yang berkaitan dengan ${topik.toLowerCase()} dalam kehidupan sehari-hari?`,
+                    `Menurut kalian, mengapa penting untuk mempelajari ${topik.toLowerCase()}?`
+                ],
+                asesmenDiagnostik: [
+                    `Siapa yang sudah pernah mendengar tentang ${topik.toLowerCase()}?`,
+                    `Coba sebutkan satu contoh yang berhubungan dengan ${topik.toLowerCase()}!`,
+                    `Apa yang ingin kalian ketahui lebih lanjut tentang ${topik.toLowerCase()}?`
+                ],
+                soalSumatif: [
+                    `Jelaskan pengertian ${topik.toLowerCase()} dengan kata-katamu sendiri!`,
+                    `Sebutkan 3 contoh ${topik.toLowerCase()} yang dapat ditemukan di lingkungan sekitar!`,
+                    `Apa manfaat mempelajari ${topik.toLowerCase()} dalam kehidupan sehari-hari?`,
+                    `Buatlah diagram atau gambar sederhana yang menjelaskan konsep ${topik.toLowerCase()}!`,
+                    `Jika kamu menjadi guru, bagaimana cara kamu menjelaskan ${topik.toLowerCase()} kepada temanmu?`
+                ],
+                ideLKPD: `LKPD berjudul "Menjelajahi ${topik}" berisi: (1) Tujuan pembelajaran yang jelas, (2) Petunjuk kerja langkah demi langkah, (3) Tabel pengamatan untuk mencatat temuan, (4) Kolom analisis dan kesimpulan, (5) Pertanyaan refleksi. LKPD dirancang dengan gambar menarik dan ruang cukup untuk menulis. Peserta didik bekerja dalam kelompok untuk mengisi LKPD berdasarkan pengamatan dan diskusi.`,
+                bahanBacaan: `${topik} merupakan materi pembelajaran yang penting untuk dipahami oleh peserta didik. Konsep ini membantu peserta didik memahami fenomena di sekitar mereka dan mengembangkan cara berpikir ilmiah. Dengan mempelajari ${topik.toLowerCase()}, peserta didik dapat menghubungkan teori dengan praktik dalam kehidupan sehari-hari. Materi ini juga mendukung pengembangan keterampilan abad 21 seperti berpikir kritis, kreativitas, dan kemampuan berkomunikasi.`,
+                glosarium: [
+                    { kata: 'Observasi', arti: 'Kegiatan mengamati objek atau fenomena dengan cermat' },
+                    { kata: 'Analisis', arti: 'Proses mengurai informasi untuk memahami hubungan antar bagian' },
+                    { kata: 'Kesimpulan', arti: 'Pernyataan akhir berdasarkan hasil pengamatan dan analisis' },
+                    { kata: 'Hipotesis', arti: 'Dugaan sementara yang dapat diuji kebenarannya' },
+                    { kata: 'Eksperimen', arti: 'Percobaan yang dilakukan untuk menguji suatu hipotesis' }
+                ]
+            };
+
+            // Customize based on subject
+            if (mapel === 'IPAS') {
+                content.profilPelajar = ['Bernalar Kritis', 'Bergotong Royong', 'Kreatif'];
+                content.sarana.push('Bahan praktikum sederhana dari lingkungan sekitar');
+            } else if (mapel === 'Matematika') {
+                content.profilPelajar = ['Bernalar Kritis', 'Mandiri', 'Kreatif'];
+                content.sarana = [
+                    'Papan tulis dan spidol/kapur',
+                    'Lembar Kerja Peserta Didik (LKPD)',
+                    'Alat peraga matematika (jika diperlukan)',
+                    'Kertas berpetak dan penggaris',
+                    'Kalkulator sederhana (untuk kelas tinggi)'
+                ];
+            } else if (mapel === 'Bahasa Indonesia') {
+                content.profilPelajar = ['Berkebinekaan Global', 'Kreatif', 'Bergotong Royong'];
+                content.sarana = [
+                    'Papan tulis dan spidol/kapur',
+                    'Lembar Kerja Peserta Didik (LKPD)',
+                    'Teks bacaan dan media visual',
+                    'Kertas HVS dan alat tulis warna',
+                    'Kamus Besar Bahasa Indonesia'
+                ];
+            } else if (mapel === 'PPKn') {
+                content.profilPelajar = ['Beriman dan Bertakwa kepada Tuhan YME', 'Berkebinekaan Global', 'Bergotong Royong'];
+            }
+
+            return content;
+        }
+
+        function getModelActivities(model, topik, mapel, waktu) {
+            const stepTime = Math.round(waktu / 5);
+            
+            const models = {
+                'Problem Based Learning': `
+                    <ol class="text-slate-600 text-sm space-y-2">
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">a.</span>
+                            <div>
+                                <strong>Orientasi Masalah (± ${stepTime} menit):</strong><br>
+                                Guru menyajikan permasalahan kontekstual terkait ${topik.toLowerCase()}. Peserta didik mengamati dan memahami masalah yang disajikan.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">b.</span>
+                            <div>
+                                <strong>Mengorganisasi Peserta Didik (± ${stepTime} menit):</strong><br>
+                                Guru membagi peserta didik ke dalam kelompok heterogen. Setiap kelompok mendapat LKPD dan memahami tugas yang diberikan.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">c.</span>
+                            <div>
+                                <strong>Membimbing Penyelidikan (± ${stepTime} menit):</strong><br>
+                                Peserta didik mengumpulkan informasi dari berbagai sumber. Guru membimbing kelompok dalam proses penyelidikan dan diskusi.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">d.</span>
+                            <div>
+                                <strong>Mengembangkan & Menyajikan Hasil (± ${stepTime} menit):</strong><br>
+                                Setiap kelompok menyusun hasil diskusi dan mempresentasikan solusi di depan kelas.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">e.</span>
+                            <div>
+                                <strong>Analisis & Evaluasi (± ${stepTime} menit):</strong><br>
+                                Guru dan peserta didik bersama-sama menganalisis dan mengevaluasi proses pemecahan masalah.
+                            </div>
+                        </li>
+                    </ol>
+                `,
+                'Project Based Learning': `
+                    <ol class="text-slate-600 text-sm space-y-2">
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">a.</span>
+                            <div>
+                                <strong>Penentuan Proyek (± ${stepTime} menit):</strong><br>
+                                Guru dan peserta didik menentukan tema proyek terkait ${topik.toLowerCase()}. Proyek disesuaikan dengan konteks kehidupan sehari-hari peserta didik.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">b.</span>
+                            <div>
+                                <strong>Perancangan Langkah (± ${stepTime} menit):</strong><br>
+                                Peserta didik merancang langkah-langkah penyelesaian proyek dalam kelompok. Guru membimbing penyusunan jadwal dan pembagian tugas.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">c.</span>
+                            <div>
+                                <strong>Penyusunan Jadwal (± ${stepTime} menit):</strong><br>
+                                Kelompok menyusun timeline penyelesaian proyek. Guru memastikan setiap anggota memiliki peran yang jelas.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">d.</span>
+                            <div>
+                                <strong>Penyelesaian Proyek (± ${stepTime} menit):</strong><br>
+                                Peserta didik menyelesaikan proyek dengan bimbingan guru. Proses pembuatan didokumentasikan dengan baik.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">e.</span>
+                            <div>
+                                <strong>Presentasi & Evaluasi (± ${stepTime} menit):</strong><br>
+                                Setiap kelompok mempresentasikan hasil proyek. Guru dan peserta didik memberikan apresiasi dan masukan.
+                            </div>
+                        </li>
+                    </ol>
+                `,
+                'Discovery Learning': `
+                    <ol class="text-slate-600 text-sm space-y-2">
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">a.</span>
+                            <div>
+                                <strong>Stimulation/Pemberian Rangsangan (± ${stepTime} menit):</strong><br>
+                                Guru memberikan stimulus berupa gambar, video, atau fenomena terkait ${topik.toLowerCase()}. Peserta didik mengamati dan mencatat hal-hal menarik.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">b.</span>
+                            <div>
+                                <strong>Problem Statement/Identifikasi Masalah (± ${stepTime} menit):</strong><br>
+                                Peserta didik mengidentifikasi pertanyaan-pertanyaan yang muncul dari stimulus. Guru memfasilitasi perumusan masalah yang akan dipecahkan.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">c.</span>
+                            <div>
+                                <strong>Data Collection/Pengumpulan Data (± ${stepTime} menit):</strong><br>
+                                Peserta didik mengumpulkan informasi melalui pengamatan, membaca sumber, atau eksperimen sederhana.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">d.</span>
+                            <div>
+                                <strong>Data Processing/Pengolahan Data (± ${stepTime} menit):</strong><br>
+                                Peserta didik mengolah dan menganalisis data yang terkumpul dalam kelompok diskusi.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">e.</span>
+                            <div>
+                                <strong>Verification & Generalization (± ${stepTime} menit):</strong><br>
+                                Peserta didik memverifikasi temuan dan membuat kesimpulan. Guru membimbing generalisasi konsep yang ditemukan.
+                            </div>
+                        </li>
+                    </ol>
+                `,
+                'Inquiry Learning': `
+                    <ol class="text-slate-600 text-sm space-y-2">
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">a.</span>
+                            <div>
+                                <strong>Orientasi (± ${stepTime} menit):</strong><br>
+                                Guru memperkenalkan topik ${topik.toLowerCase()} dan memancing keingintahuan peserta didik melalui pertanyaan-pertanyaan pemantik.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">b.</span>
+                            <div>
+                                <strong>Merumuskan Masalah (± ${stepTime} menit):</strong><br>
+                                Peserta didik merumuskan pertanyaan penelitian berdasarkan rasa ingin tahu mereka tentang ${topik.toLowerCase()}.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">c.</span>
+                            <div>
+                                <strong>Merumuskan Hipotesis (± ${stepTime} menit):</strong><br>
+                                Peserta didik membuat dugaan sementara yang dapat diuji. Guru membimbing penyusunan hipotesis yang terukur.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">d.</span>
+                            <div>
+                                <strong>Mengumpulkan Data (± ${stepTime} menit):</strong><br>
+                                Peserta didik melakukan penyelidikan untuk mengumpulkan data guna menguji hipotesis.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">e.</span>
+                            <div>
+                                <strong>Menyimpulkan (± ${stepTime} menit):</strong><br>
+                                Peserta didik menganalisis data dan membuat kesimpulan. Hasil penyelidikan dipresentasikan dan didiskusikan bersama.
+                            </div>
+                        </li>
+                    </ol>
+                `,
+                'Cooperative Learning': `
+                    <ol class="text-slate-600 text-sm space-y-2">
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">a.</span>
+                            <div>
+                                <strong>Menyampaikan Tujuan & Memotivasi (± ${stepTime} menit):</strong><br>
+                                Guru menyampaikan tujuan pembelajaran ${topik.toLowerCase()} dan memotivasi peserta didik untuk bekerja sama.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">b.</span>
+                            <div>
+                                <strong>Menyajikan Informasi (± ${stepTime} menit):</strong><br>
+                                Guru menyajikan materi secara singkat dan membagikan LKPD kepada setiap kelompok.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">c.</span>
+                            <div>
+                                <strong>Mengorganisasikan Kelompok Belajar (± ${stepTime} menit):</strong><br>
+                                Guru membentuk kelompok heterogen dan menjelaskan peran masing-masing anggota dalam kelompok.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">d.</span>
+                            <div>
+                                <strong>Membimbing Kerja Kelompok (± ${stepTime} menit):</strong><br>
+                                Peserta didik bekerja sama menyelesaikan tugas. Guru berkeliling membimbing dan memastikan semua anggota berkontribusi.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">e.</span>
+                            <div>
+                                <strong>Evaluasi & Penghargaan (± ${stepTime} menit):</strong><br>
+                                Kelompok mempresentasikan hasil kerja. Guru dan peserta didik memberikan apresiasi kepada kelompok terbaik.
+                            </div>
+                        </li>
+                    </ol>
+                `,
+                'Contextual Teaching and Learning': `
+                    <ol class="text-slate-600 text-sm space-y-2">
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">a.</span>
+                            <div>
+                                <strong>Konstruktivisme (± ${stepTime} menit):</strong><br>
+                                Peserta didik membangun pemahaman sendiri tentang ${topik.toLowerCase()} berdasarkan pengalaman dan pengetahuan awal mereka.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">b.</span>
+                            <div>
+                                <strong>Inkuiri/Menemukan (± ${stepTime} menit):</strong><br>
+                                Peserta didik melakukan penyelidikan untuk menemukan konsep-konsep penting dalam ${topik.toLowerCase()}.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">c.</span>
+                            <div>
+                                <strong>Bertanya & Masyarakat Belajar (± ${stepTime} menit):</strong><br>
+                                Peserta didik aktif bertanya dan berdiskusi dalam kelompok untuk saling berbagi pengetahuan.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">d.</span>
+                            <div>
+                                <strong>Pemodelan (± ${stepTime} menit):</strong><br>
+                                Guru atau peserta didik mendemonstrasikan contoh penerapan ${topik.toLowerCase()} dalam kehidupan nyata.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">e.</span>
+                            <div>
+                                <strong>Refleksi & Penilaian Autentik (± ${stepTime} menit):</strong><br>
+                                Peserta didik merefleksikan pembelajaran dan dinilai berdasarkan proses dan hasil karya yang autentik.
+                            </div>
+                        </li>
+                    </ol>
+                `
+            };
+
+            return models[model] || models['Problem Based Learning'];
+        }
+
+        // Soal form handling
+        document.getElementById('soal-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (isLoading) return;
+            
+            const soalData = {
+                mata_pelajaran: document.getElementById('soal_mapel').value,
+                kelas: document.getElementById('soal_kelas').value,
+                topik: document.getElementById('soal_topik').value,
+                jenis_soal: document.getElementById('soal_jenis').value,
+                jumlah_soal: parseInt(document.getElementById('soal_jumlah').value),
+                tingkat_kesulitan: document.getElementById('soal_kesulitan').value,
+                format_penilaian: document.getElementById('soal_penilaian').value
+            };
+            
+            // Validate
+            for (const [key, value] of Object.entries(soalData)) {
+                if (!value) {
+                    showToast('Mohon lengkapi semua field yang diperlukan', 'error');
+                    return;
+                }
+            }
+            
+            showLoading(true);
+            isLoading = true;
+            
+            // Simulate processing
+            await new Promise(resolve => setTimeout(resolve, 800));
+            
+            generateSoalContent(soalData);
+            
+            showLoading(false);
+            isLoading = false;
+            
+            document.getElementById('soal-output').classList.remove('hidden');
+            document.getElementById('soal-actions').classList.remove('hidden');
+            
+            showToast('Soal berhasil dibuat!', 'success');
+            
+            // Scroll to output
+            document.getElementById('soal-output').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        // Reset soal form
+        function resetSoalForm() {
+            document.getElementById('soal-form').reset();
+            document.getElementById('soal-output').classList.add('hidden');
+            document.getElementById('soal-actions').classList.add('hidden');
+        }
+
+        // Copy soal content
+        async function copySoalContent() {
+            const output = document.getElementById('soal-output');
+            if (!output || !output.innerHTML.trim()) {
+                showToast('Tidak ada soal untuk disalin', 'error');
+                return;
+            }
+
+            try {
+                // Create a temporary element to get clean text
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = output.innerHTML;
+                
+                // Remove no-print elements
+                const noPrintElements = tempDiv.querySelectorAll('.no-print');
+                noPrintElements.forEach(el => el.remove());
+                
+                // Get text content
+                const textContent = tempDiv.innerText || tempDiv.textContent;
+                
+                // Copy to clipboard using modern API
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(textContent);
+                    showToast('Soal berhasil disalin ke clipboard!', 'success');
+                } else {
+                    // Fallback for older browsers
+                    const textarea = document.createElement('textarea');
+                    textarea.value = textContent;
+                    textarea.style.position = 'fixed';
+                    textarea.style.opacity = '0';
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    showToast('Soal berhasil disalin ke clipboard!', 'success');
+                }
+            } catch (err) {
+                console.error('Failed to copy:', err);
+                // Final fallback - try to select the text
+                try {
+                    const range = document.createRange();
+                    range.selectNodeContents(output);
+                    const selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    showToast('Teks telah dipilih. Tekan Ctrl+C untuk menyalin.', 'info');
+                } catch (selectErr) {
+                    showToast('Gagal menyalin soal. Silakan pilih teks secara manual.', 'error');
+                }
+            }
+        }
+
+        // Generate soal content
+        function generateSoalContent(data) {
+            const output = document.getElementById('soal-output');
+            const content = createSoalHTML(data);
+            output.innerHTML = content;
+        }
+
+        // Create soal HTML based on type
+        function createSoalHTML(data) {
+            const { mata_pelajaran, kelas, topik, jenis_soal, jumlah_soal, tingkat_kesulitan, format_penilaian } = data;
+            
+            let soalItems = '';
+            
+            if (jenis_soal === 'Pilihan Ganda') {
+                soalItems = generatePilihanGanda(jumlah_soal, topik, mata_pelajaran, tingkat_kesulitan);
+            } else if (jenis_soal === 'Esai') {
+                soalItems = generateEsai(jumlah_soal, topik, mata_pelajaran, tingkat_kesulitan);
+            } else if (jenis_soal === 'Isian Singkat') {
+                soalItems = generateIsianSingkat(jumlah_soal, topik, mata_pelajaran, tingkat_kesulitan);
+            } else if (jenis_soal === 'Benar-Salah') {
+                soalItems = generateBenarSalah(jumlah_soal, topik, mata_pelajaran, tingkat_kesulitan);
+            } else if (jenis_soal === 'Menjodohkan') {
+                soalItems = generateMenjodohkan(jumlah_soal, topik, mata_pelajaran, tingkat_kesulitan);
+            }
+            
+            let kunciJawaban = '';
+            if (format_penilaian === 'Dengan Kunci Jawaban' || format_penilaian === 'Lengkap (Kunci + Rubrik)') {
+                kunciJawaban = generateKunciJawaban(jenis_soal, jumlah_soal);
+            }
+            
+            let rubrikPenilaian = '';
+            if (format_penilaian === 'Dengan Rubrik Penilaian' || format_penilaian === 'Lengkap (Kunci + Rubrik)') {
+                rubrikPenilaian = generateRubrikPenilaian(jenis_soal);
+            }
+            
+            return `
+                <div class="p-6 md:p-8">
+                    <!-- Header -->
+                    <div class="text-center mb-8 pb-6 border-b-2 border-slate-200">
+                        <h1 class="text-2xl md:text-3xl font-bold text-slate-800 mb-2">SOAL EVALUASI</h1>
+                        <h2 class="text-xl md:text-2xl font-bold text-purple-700">${escapeHtml(mata_pelajaran)}</h2>
+                        <p class="text-lg text-slate-600 mt-2 font-medium">${escapeHtml(topik)}</p>
+                        <div class="flex flex-wrap justify-center gap-2 mt-3">
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold">${escapeHtml(kelas)}</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">${escapeHtml(jenis_soal)}</span>
+                            <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-semibold">Tingkat: ${escapeHtml(tingkat_kesulitan)}</span>
+                        </div>
+                    </div>
+
+                    <!-- Petunjuk Umum -->
+                    <div class="bg-blue-50 rounded-xl p-5 mb-6 border-l-4 border-blue-500">
+                        <h3 class="font-bold text-blue-800 mb-2 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Petunjuk Umum
+                        </h3>
+                        <ul class="text-slate-700 text-sm space-y-1">
+                            <li class="flex items-start gap-2"><span class="text-blue-600">•</span>Berdoalah sebelum mengerjakan soal</li>
+                            <li class="flex items-start gap-2"><span class="text-blue-600">•</span>Tuliskan nama, kelas, dan nomor absen pada lembar jawaban</li>
+                            <li class="flex items-start gap-2"><span class="text-blue-600">•</span>Bacalah setiap soal dengan teliti sebelum menjawab</li>
+                            <li class="flex items-start gap-2"><span class="text-blue-600">•</span>Kerjakan soal dengan jujur dan mandiri</li>
+                            <li class="flex items-start gap-2"><span class="text-blue-600">•</span>Periksa kembali jawaban sebelum dikumpulkan</li>
+                        </ul>
+                    </div>
+
+                    <!-- Soal -->
+                    <div class="mb-6">
+                        <div class="bg-purple-600 text-white px-5 py-3 rounded-t-xl font-bold">
+                            Soal ${escapeHtml(jenis_soal)} (${jumlah_soal} Soal)
+                        </div>
+                        <div class="bg-white border-2 border-purple-600 rounded-b-xl p-5">
+                            ${soalItems}
+                        </div>
+                    </div>
+
+                    ${kunciJawaban}
+                    ${rubrikPenilaian}
+
+                    <!-- Footer -->
+                    <div class="text-center pt-6 border-t border-slate-200 mt-6">
+                        <p class="text-slate-500 text-sm">Soal Evaluasi - ${escapeHtml(mata_pelajaran)}</p>
+                        <p class="text-slate-400 text-xs mt-1">Dibuat pada: ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // AI-powered question generation functions
+        function generatePilihanGanda(jumlah, topik, mapel, kesulitan) {
+            const questions = getAIQuestions(jumlah, topik, mapel, kesulitan, 'Pilihan Ganda');
+            let soal = '';
+            
+            questions.forEach((q, index) => {
+                soal += `
+                    <div class="mb-6 pb-6 border-b border-slate-200 last:border-0">
+                        <p class="font-semibold text-slate-800 mb-3">${index + 1}. ${q.question}</p>
+                        <div class="space-y-2 ml-6">
+                            ${q.options.map((opt, i) => `
+                                <div class="flex items-start gap-2">
+                                    <span class="font-medium text-slate-600">${String.fromCharCode(65 + i)}.</span>
+                                    <span class="text-slate-700">${opt}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            return soal;
+        }
+
+        function generateEsai(jumlah, topik, mapel, kesulitan) {
+            const questions = getAIQuestions(jumlah, topik, mapel, kesulitan, 'Esai');
+            let soal = '';
+            
+            questions.forEach((q, index) => {
+                soal += `
+                    <div class="mb-6 pb-6 border-b border-slate-200 last:border-0">
+                        <p class="font-semibold text-slate-800 mb-3">${index + 1}. ${q.question}</p>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 min-h-[100px]">
+                            <p class="text-slate-400 text-sm italic">Ruang untuk menulis jawaban...</p>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            return soal;
+        }
+
+        function generateIsianSingkat(jumlah, topik, mapel, kesulitan) {
+            const questions = getAIQuestions(jumlah, topik, mapel, kesulitan, 'Isian Singkat');
+            let soal = '';
+            
+            questions.forEach((q, index) => {
+                soal += `
+                    <div class="mb-4 pb-4 border-b border-slate-200 last:border-0">
+                        <p class="font-semibold text-slate-800 mb-2">${index + 1}. ${q.question}</p>
+                        <div class="flex items-center gap-3 mt-2">
+                            <span class="text-slate-600">Jawaban:</span>
+                            <div class="flex-1 border-b-2 border-dotted border-slate-300 pb-1"></div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            return soal;
+        }
+
+        function generateBenarSalah(jumlah, topik, mapel, kesulitan) {
+            const questions = getAIQuestions(jumlah, topik, mapel, kesulitan, 'Benar-Salah');
+            let soal = '';
+            
+            questions.forEach((q, index) => {
+                soal += `
+                    <div class="mb-4 pb-4 border-b border-slate-200 last:border-0">
+                        <div class="flex items-start gap-3">
+                            <span class="font-semibold text-slate-800">${index + 1}.</span>
+                            <div class="flex-1">
+                                <p class="text-slate-700 mb-2">${q.statement}</p>
+                                <div class="flex gap-4">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" class="w-4 h-4 text-green-600 rounded">
+                                        <span class="text-green-700 font-medium">Benar</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" class="w-4 h-4 text-red-600 rounded">
+                                        <span class="text-red-700 font-medium">Salah</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            return soal;
+        }
+
+        function generateMenjodohkan(jumlah, topik, mapel, kesulitan) {
+            const pairs = Math.min(jumlah, 10);
+            const matchingData = getAIMatchingQuestions(pairs, topik, mapel, kesulitan);
+            
+            let kolomA = '';
+            let kolomB = '';
+            
+            matchingData.forEach((pair, i) => {
+                kolomA += `
+                    <div class="flex items-start gap-2 mb-2">
+                        <span class="font-semibold text-slate-800">${i + 1}.</span>
+                        <span class="text-slate-700">${pair.columnA}</span>
+                        <div class="ml-auto w-12 border-b-2 border-dotted border-slate-300"></div>
+                    </div>
+                `;
+                
+                const letter = String.fromCharCode(65 + i);
+                kolomB += `
+                    <div class="flex items-start gap-2 mb-2">
+                        <span class="font-semibold text-slate-800">${letter}.</span>
+                        <span class="text-slate-700">${pair.columnB}</span>
+                    </div>
+                `;
+            });
+            
+            return `
+                <div class="mb-4">
+                    <p class="font-semibold text-slate-800 mb-4">Jodohkan pernyataan di kolom A dengan jawaban yang tepat di kolom B!</p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 rounded-lg p-4">
+                            <h4 class="font-bold text-blue-800 mb-3">Kolom A</h4>
+                            ${kolomA}
+                        </div>
+                        <div class="bg-green-50 rounded-lg p-4">
+                            <h4 class="font-bold text-green-800 mb-3">Kolom B</h4>
+                            ${kolomB}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // AI Question Generator - Smart content based on subject and difficulty
+        function getAIQuestions(jumlah, topik, mapel, kesulitan, jenis) {
+            const questions = [];
+            const templates = getQuestionTemplates(mapel, kesulitan, jenis);
+            
+            for (let i = 0; i < jumlah; i++) {
+                const template = templates[i % templates.length];
+                questions.push(generateSmartQuestion(template, topik, mapel, kesulitan, i));
+            }
+            
+            return questions;
+        }
+
+        function getQuestionTemplates(mapel, kesulitan, jenis) {
+            const templates = {
+                'Mudah': {
+                    'Pilihan Ganda': [
+                        { type: 'definisi', verb: 'Apakah yang dimaksud dengan' },
+                        { type: 'identifikasi', verb: 'Manakah yang termasuk' },
+                        { type: 'contoh', verb: 'Contoh dari' },
+                        { type: 'fungsi', verb: 'Fungsi utama dari' },
+                        { type: 'ciri', verb: 'Ciri-ciri dari' }
+                    ],
+                    'Esai': [
+                        { type: 'jelaskan', verb: 'Jelaskan pengertian' },
+                        { type: 'sebutkan', verb: 'Sebutkan 3 contoh' },
+                        { type: 'uraikan', verb: 'Uraikan secara singkat tentang' }
+                    ],
+                    'Isian Singkat': [
+                        { type: 'istilah', prefix: 'Proses', suffix: 'disebut' },
+                        { type: 'nama', prefix: '', suffix: 'adalah nama dari' },
+                        { type: 'jumlah', prefix: 'Jumlah', suffix: 'pada' }
+                    ],
+                    'Benar-Salah': [
+                        { type: 'fakta', template: 'memiliki karakteristik' },
+                        { type: 'definisi', template: 'didefinisikan sebagai' },
+                        { type: 'fungsi', template: 'berfungsi untuk' }
+                    ]
+                },
+                'Sedang': {
+                    'Pilihan Ganda': [
+                        { type: 'analisis', verb: 'Bagaimana hubungan antara' },
+                        { type: 'bandingkan', verb: 'Perbedaan utama antara' },
+                        { type: 'aplikasi', verb: 'Penerapan konsep' },
+                        { type: 'prosedur', verb: 'Langkah yang tepat dalam' },
+                        { type: 'klasifikasi', verb: 'Berdasarkan kriteria' }
+                    ],
+                    'Esai': [
+                        { type: 'bandingkan', verb: 'Bandingkan dan jelaskan perbedaan antara' },
+                        { type: 'analisis', verb: 'Analisis pengaruh' },
+                        { type: 'terapkan', verb: 'Bagaimana cara menerapkan konsep' }
+                    ],
+                    'Isian Singkat': [
+                        { type: 'proses', prefix: 'Hasil dari proses', suffix: 'adalah' },
+                        { type: 'hubungan', prefix: 'Hubungan antara', suffix: 'dengan' },
+                        { type: 'pengaruh', prefix: 'Faktor yang mempengaruhi', suffix: 'adalah' }
+                    ],
+                    'Benar-Salah': [
+                        { type: 'hubungan', template: 'memiliki hubungan langsung dengan' },
+                        { type: 'pengaruh', template: 'dipengaruhi oleh faktor' },
+                        { type: 'prosedur', template: 'dilakukan melalui tahapan' }
+                    ]
+                },
+                'Sulit': {
+                    'Pilihan Ganda': [
+                        { type: 'evaluasi', verb: 'Evaluasi dampak dari' },
+                        { type: 'sintesis', verb: 'Jika digabungkan dengan' },
+                        { type: 'prediksi', verb: 'Apa yang terjadi jika' },
+                        { type: 'argumen', verb: 'Argumen yang paling kuat untuk' },
+                        { type: 'kritik', verb: 'Kelemahan pendekatan' }
+                    ],
+                    'Esai': [
+                        { type: 'evaluasi', verb: 'Evaluasi secara kritis tentang' },
+                        { type: 'ciptakan', verb: 'Rancanglah sebuah strategi untuk' },
+                        { type: 'sintesis', verb: 'Sintesiskan berbagai konsep dalam' }
+                    ],
+                    'Isian Singkat': [
+                        { type: 'implikasi', prefix: 'Implikasi dari', suffix: 'terhadap' },
+                        { type: 'optimasi', prefix: 'Cara optimal untuk', suffix: 'adalah' },
+                        { type: 'kompleks', prefix: 'Interaksi kompleks antara', suffix: 'menghasilkan' }
+                    ],
+                    'Benar-Salah': [
+                        { type: 'implikasi', template: 'memiliki implikasi penting terhadap' },
+                        { type: 'kompleksitas', template: 'merupakan sistem kompleks yang melibatkan' },
+                        { type: 'evaluasi', template: 'dapat dievaluasi berdasarkan kriteria' }
+                    ]
+                }
+            };
+            
+            const level = kesulitan === 'Campuran' ? 'Sedang' : kesulitan;
+            return templates[level][jenis] || templates['Sedang'][jenis];
+        }
+
+        function generateSmartQuestion(template, topik, mapel, kesulitan, index) {
+            const subjectKeywords = getSubjectKeywords(mapel, topik);
+            const keyword = subjectKeywords[index % subjectKeywords.length];
+            
+            if (template.type === 'definisi') {
+                return {
+                    question: `${template.verb} ${keyword.term} dalam ${topik}?`,
+                    options: [
+                        keyword.correct,
+                        keyword.distractor1,
+                        keyword.distractor2,
+                        keyword.distractor3
+                    ],
+                    answer: 'A'
+                };
+            } else if (template.type === 'jelaskan') {
+                return {
+                    question: `${template.verb} ${keyword.term} dan bagaimana penerapannya dalam kehidupan sehari-hari!`
+                };
+            } else if (template.type === 'istilah') {
+                return {
+                    question: `${template.prefix} ${keyword.process} ${template.suffix} ....`
+                };
+            } else if (template.type === 'fakta') {
+                return {
+                    statement: `${keyword.term} ${template.template} ${keyword.characteristic}`
+                };
+            } else if (template.type === 'analisis') {
+                return {
+                    question: `${template.verb} ${keyword.concept1} dan ${keyword.concept2} dalam konteks ${topik}?`,
+                    options: [
+                        keyword.relationship,
+                        keyword.altRelation1,
+                        keyword.altRelation2,
+                        keyword.altRelation3
+                    ],
+                    answer: 'A'
+                };
+            } else if (template.type === 'bandingkan') {
+                return {
+                    question: `${template.verb} ${keyword.term} dan ${keyword.comparison} berdasarkan aspek strukturnya!`
+                };
+            } else if (template.type === 'evaluasi') {
+                return {
+                    question: `${template.verb} ${keyword.concept} terhadap ${keyword.impact} dalam perspektif ${mapel}?`,
+                    options: [
+                        keyword.evaluation,
+                        keyword.altEval1,
+                        keyword.altEval2,
+                        keyword.altEval3
+                    ],
+                    answer: 'A'
+                };
+            }
+            
+            // Default fallback
+            return {
+                question: `Berdasarkan pemahaman Anda tentang ${topik}, ${template.verb || 'jelaskan'} konsep ${keyword.term}?`,
+                options: ['Pilihan A yang benar', 'Pilihan B sebagai distractor', 'Pilihan C sebagai distractor', 'Pilihan D sebagai distractor'],
+                answer: 'A'
+            };
+        }
+
+        function getSubjectKeywords(mapel, topik) {
+            // Rich knowledge base for different subjects
+            const keywords = {
+                'Bahasa Indonesia': [
+                    { 
+                        term: 'struktur teks', 
+                        correct: 'Susunan bagian-bagian yang membangun sebuah teks secara utuh',
+                        distractor1: 'Kumpulan kata-kata yang tersusun acak dalam paragraf',
+                        distractor2: 'Tanda baca yang digunakan dalam penulisan',
+                        distractor3: 'Gaya bahasa yang digunakan penulis',
+                        process: 'penyusunan teks',
+                        characteristic: 'orientasi, komplikasi, dan resolusi',
+                        concept1: 'teks narasi',
+                        concept2: 'teks eksposisi',
+                        relationship: 'Teks narasi menceritakan kejadian sedangkan eksposisi menjelaskan informasi',
+                        altRelation1: 'Keduanya sama-sama bertujuan menghibur pembaca',
+                        altRelation2: 'Tidak ada perbedaan signifikan antara keduanya',
+                        altRelation3: 'Hanya berbeda dari segi jumlah paragraf',
+                        comparison: 'teks deskripsi',
+                        concept: 'penggunaan majas',
+                        impact: 'daya tarik teks sastra',
+                        evaluation: 'Meningkatkan estetika dan memperdalam makna karya sastra',
+                        altEval1: 'Hanya membuat teks menjadi lebih panjang',
+                        altEval2: 'Tidak berpengaruh terhadap kualitas teks',
+                        altEval3: 'Hanya untuk mempersulit pemahaman pembaca'
+                    },
+                    { 
+                        term: 'kohesi dan koherensi', 
+                        correct: 'Hubungan antarkalimat yang padu dan bermakna logis',
+                        distractor1: 'Jumlah kalimat dalam satu paragraf',
+                        distractor2: 'Penggunaan huruf kapital yang tepat',
+                        distractor3: 'Panjang pendeknya sebuah kalimat',
+                        process: 'penghubungan ide',
+                        characteristic: 'kesatuan makna dan keterkaitan logis',
+                        concept1: 'konjungsi',
+                        concept2: 'referensi',
+                        relationship: 'Konjungsi menghubungkan kalimat sedangkan referensi merujuk kata sebelumnya',
+                        altRelation1: 'Keduanya tidak berkaitan dalam struktur teks',
+                        altRelation2: 'Sama-sama hanya hiasan dalam kalimat',
+                        altRelation3: 'Hanya digunakan dalam teks formal',
+                        comparison: 'repetisi',
+                        concept: 'penggunaan diksi',
+                        impact: 'efektivitas komunikasi',
+                        evaluation: 'Pemilihan kata yang tepat membuat pesan tersampaikan dengan jelas dan efektif',
+                        altEval1: 'Hanya mempengaruhi panjang tulisan',
+                        altEval2: 'Tidak ada dampak pada pemahaman pembaca',
+                        altEval3: 'Hanya penting untuk penulis profesional'
+                    },
+                    {
+                        term: 'gagasan utama',
+                        correct: 'Ide pokok yang menjadi dasar pengembangan paragraf',
+                        distractor1: 'Kalimat terakhir dalam paragraf',
+                        distractor2: 'Jumlah kata dalam paragraf',
+                        distractor3: 'Gaya penulisan penulis',
+                        process: 'identifikasi ide pokok',
+                        characteristic: 'sifat umum dan mendasar',
+                        concept1: 'paragraf deduktif',
+                        concept2: 'paragraf induktif',
+                        relationship: 'Deduktif dimulai gagasan umum, induktif diakhiri gagasan umum',
+                        altRelation1: 'Tidak ada perbedaan di antara keduanya',
+                        altRelation2: 'Hanya berbeda jumlah kalimatnya',
+                        altRelation3: 'Sama-sama tidak memiliki gagasan utama',
+                        comparison: 'gagasan penjelas',
+                        concept: 'struktur paragraf',
+                        impact: 'keterbacaan teks',
+                        evaluation: 'Struktur yang baik memudahkan pembaca memahami alur pikiran penulis',
+                        altEval1: 'Tidak mempengaruhi pemahaman teks',
+                        altEval2: 'Hanya penting untuk teks akademik',
+                        altEval3: 'Struktur tidak relevan dengan isi'
+                    }
+                ],
+                'Matematika': [
+                    {
+                        term: 'fungsi linear',
+                        correct: 'Fungsi yang grafiknya berupa garis lurus dengan bentuk f(x) = ax + b',
+                        distractor1: 'Fungsi yang selalu bernilai positif',
+                        distractor2: 'Fungsi yang hanya memiliki satu variabel',
+                        distractor3: 'Fungsi yang grafiknya berbentuk lingkaran',
+                        process: 'penentuan gradien',
+                        characteristic: 'laju perubahan yang konstan',
+                        concept1: 'gradien positif',
+                        concept2: 'gradien negatif',
+                        relationship: 'Gradien positif naik ke kanan, gradien negatif turun ke kanan',
+                        altRelation1: 'Tidak ada perbedaan visual pada grafik',
+                        altRelation2: 'Hanya berbeda pada nilai y-intercept',
+                        altRelation3: 'Keduanya menghasilkan garis horizontal',
+                        comparison: 'fungsi kuadrat',
+                        concept: 'persamaan linear dua variabel',
+                        impact: 'pemecahan masalah kontekstual',
+                        evaluation: 'Memungkinkan pemodelan hubungan proporsional dalam kehidupan nyata',
+                        altEval1: 'Hanya berguna untuk menggambar grafik',
+                        altEval2: 'Tidak ada aplikasi praktis',
+                        altEval3: 'Hanya diperlukan dalam matematika tingkat lanjut'
+                    },
+                    {
+                        term: 'teorema Pythagoras',
+                        correct: 'Kuadrat sisi miring sama dengan jumlah kuadrat kedua sisi lainnya',
+                        distractor1: 'Jumlah semua sisi segitiga sama dengan 180',
+                        distractor2: 'Hasil kali dua sisi sama dengan sisi ketiga',
+                        distractor3: 'Keliling segitiga sama dengan luas segitiga',
+                        process: 'penghitungan sisi segitiga siku-siku',
+                        characteristic: 'berlaku pada segitiga siku-siku',
+                        concept1: 'triple Pythagoras',
+                        concept2: 'segitiga sembarang',
+                        relationship: 'Triple Pythagoras memiliki bilangan bulat, segitiga sembarang tidak selalu',
+                        altRelation1: 'Tidak ada perbedaan sama sekali',
+                        altRelation2: 'Hanya berbeda pada besar sudutnya',
+                        altRelation3: 'Triple Pythagoras tidak menggunakan teorema Pythagoras',
+                        comparison: 'aturan cosinus',
+                        concept: 'aplikasi Pythagoras',
+                        impact: 'perhitungan jarak dan tinggi',
+                        evaluation: 'Sangat praktis untuk menghitung jarak tidak langsung dalam konstruksi dan navigasi',
+                        altEval1: 'Hanya teori tanpa aplikasi nyata',
+                        altEval2: 'Tidak relevan dengan kehidupan sehari-hari',
+                        altEval3: 'Hanya untuk menghitung luas segitiga'
+                    },
+                    {
+                        term: 'sistem persamaan linear',
+                        correct: 'Dua atau lebih persamaan linear yang diselesaikan bersamaan',
+                        distractor1: 'Persamaan yang memiliki pangkat tertinggi dua',
+                        distractor2: 'Himpunan semua bilangan real',
+                        distractor3: 'Grafik yang tidak pernah berpotongan',
+                        process: 'eliminasi dan substitusi',
+                        characteristic: 'memiliki titik potong sebagai solusi',
+                        concept1: 'metode eliminasi',
+                        concept2: 'metode substitusi',
+                        relationship: 'Eliminasi menghilangkan variabel, substitusi mengganti variabel dengan nilai',
+                        altRelation1: 'Keduanya tidak bisa digunakan untuk sistem persamaan',
+                        altRelation2: 'Eliminasi hanya untuk persamaan kuadrat',
+                        altRelation3: 'Tidak ada perbedaan hasil akhirnya',
+                        comparison: 'pertidaksamaan linear',
+                        concept: 'model matematika',
+                        impact: 'optimasi dalam ekonomi',
+                        evaluation: 'Membantu mengoptimalkan keuntungan dan meminimalkan biaya dalam bisnis',
+                        altEval1: 'Hanya untuk latihan soal di sekolah',
+                        altEval2: 'Tidak ada manfaat dalam dunia kerja',
+                        altEval3: 'Terlalu rumit untuk aplikasi praktis'
+                    }
+                ],
+                'Ekonomi': [
+                    {
+                        term: 'permintaan dan penawaran',
+                        correct: 'Jumlah barang yang diminta konsumen dan ditawarkan produsen pada harga tertentu',
+                        distractor1: 'Harga barang di pasar tradisional',
+                        distractor2: 'Jumlah uang yang dimiliki pembeli',
+                        distractor3: 'Kualitas produk yang dijual',
+                        process: 'pembentukan harga keseimbangan',
+                        characteristic: 'berlaku hukum ceteris paribus',
+                        concept1: 'kurva permintaan',
+                        concept2: 'kurva penawaran',
+                        relationship: 'Kurva permintaan turun ke kanan, kurva penawaran naik ke kanan',
+                        altRelation1: 'Keduanya selalu sejajar',
+                        altRelation2: 'Tidak ada hubungan dengan harga',
+                        altRelation3: 'Hanya dipengaruhi oleh inflasi',
+                        comparison: 'elastisitas harga',
+                        concept: 'mekanisme pasar',
+                        impact: 'efisiensi alokasi sumber daya',
+                        evaluation: 'Pasar bebas mengalokasikan sumber daya secara efisien melalui sistem harga',
+                        altEval1: 'Hanya menguntungkan produsen besar',
+                        altEval2: 'Tidak ada manfaat bagi konsumen',
+                        altEval3: 'Selalu menimbulkan ketidakadilan'
+                    },
+                    {
+                        term: 'biaya peluang',
+                        correct: 'Nilai alternatif terbaik yang dikorbankan akibat memilih suatu pilihan',
+                        distractor1: 'Biaya yang harus dibayar di masa depan',
+                        distractor2: 'Harga barang yang paling murah',
+                        distractor3: 'Jumlah uang yang tersisa setelah berbelanja',
+                        process: 'pengambilan keputusan ekonomi',
+                        characteristic: 'melibatkan pilihan dan pengorbanan',
+                        concept1: 'sumber daya terbatas',
+                        concept2: 'kebutuhan tidak terbatas',
+                        relationship: 'Kelangkaan terjadi karena sumber daya terbatas sedangkan kebutuhan tidak terbatas',
+                        altRelation1: 'Tidak ada hubungan antara keduanya',
+                        altRelation2: 'Sumber daya sebenarnya tidak terbatas',
+                        altRelation3: 'Kebutuhan manusia sebenarnya terbatas',
+                        comparison: 'biaya eksplisit',
+                        concept: 'kurva kemungkinan produksi',
+                        impact: 'efisiensi produksi',
+                        evaluation: 'Membantu negara menentukan kombinasi produksi optimal dengan sumber daya terbatas',
+                        altEval1: 'Hanya teori tanpa aplikasi nyata',
+                        altEval2: 'Tidak relevan dengan kebijakan ekonomi',
+                        altEval3: 'Hanya berlaku untuk perusahaan besar'
+                    }
+                ],
+                'Sosiologi': [
+                    {
+                        term: 'mobilitas sosial',
+                        correct: 'Perpindahan posisi seseorang atau kelompok dalam struktur sosial masyarakat',
+                        distractor1: 'Jumlah penduduk yang berpindah tempat tinggal',
+                        distractor2: 'Kecepatan perubahan teknologi dalam masyarakat',
+                        distractor3: 'Tingkat pendidikan rata-rata masyarakat',
+                        process: 'perubahan status sosial',
+                        characteristic: 'vertikal naik atau turun',
+                        concept1: 'mobilitas intragenerasi',
+                        concept2: 'mobilitas antargenerasi',
+                        relationship: 'Intragenerasi terjadi dalam satu generasi, antargenerasi antar generasi berbeda',
+                        altRelation1: 'Tidak ada perbedaan makna keduanya',
+                        altRelation2: 'Hanya berbeda istilahnya saja',
+                        altRelation3: 'Keduanya tidak termasuk mobilitas sosial',
+                        comparison: 'stratifikasi sosial',
+                        concept: 'sistem kasta',
+                        impact: 'kesetaraan sosial',
+                        evaluation: 'Sistem kasta menghambat mobilitas dan melanggengkan ketimpangan sosial',
+                        altEval1: 'Sistem kasta mendorong harmoni sosial',
+                        altEval2: 'Tidak ada dampak terhadap mobilitas',
+                        altEval3: 'Sistem kasta meningkatkan produktivitas'
+                    },
+                    {
+                        term: 'lembaga sosial',
+                        correct: 'Sistem norma yang mengatur tindakan manusia dalam memenuhi kebutuhan',
+                        distractor1: 'Gedung tempat berkumpulnya masyarakat',
+                        distractor2: 'Organisasi formal yang berbadan hukum',
+                        distractor3: 'Kelompok orang yang tinggal bersama',
+                        process: 'sosialisasi nilai',
+                        characteristic: 'memiliki nilai dan norma yang kuat',
+                        concept1: 'lembaga keluarga',
+                        concept2: 'lembaga pendidikan',
+                        relationship: 'Keluarga sosialisasi primer, pendidikan sosialisasi sekunder',
+                        altRelation1: 'Tidak ada perbedaan fungsinya',
+                        altRelation2: 'Hanya berbeda lokasi fisiknya',
+                        altRelation3: 'Keduanya tidak termasuk lembaga sosial',
+                        comparison: 'lembaga ekonomi',
+                        concept: 'fungsi lembaga sosial',
+                        impact: 'keteraturan masyarakat',
+                        evaluation: 'Lembaga sosial menciptakan prediktabilitas dan stabilitas dalam interaksi sosial',
+                        altEval1: 'Lembaga sosial menghambat kreativitas',
+                        altEval2: 'Tidak berpengaruh pada perilaku individu',
+                        altEval3: 'Hanya mengatur aspek formal kehidupan'
+                    }
+                ],
+                'Geografi': [
+                    {
+                        term: 'erosi',
+                        correct: 'Pengikisan permukaan bumi oleh air, angin, atau es',
+                        distractor1: 'Penumpukan material di suatu tempat',
+                        distractor2: 'Pergerakan lempeng tektonik',
+                        distractor3: 'Pelapukan batuan oleh suhu',
+                        process: 'degradasi tanah',
+                        characteristic: 'mengangkut material ke tempat lain',
+                        concept1: 'erosi air',
+                        concept2: 'erosi angin',
+                        relationship: 'Erosi air membentuk lembah, erosi angin membentuk bukit pasir',
+                        altRelation1: 'Keduanya tidak mengubah bentuk lahan',
+                        altRelation2: 'Hanya berbeda kecepatannya',
+                        altRelation3: 'Tidak ada perbedaan hasil akhir',
+                        comparison: 'sedimentasi',
+                        concept: 'konservasi tanah',
+                        impact: 'produktivitas pertanian',
+                        evaluation: 'Erosi mengurangi kesuburan tanah sehingga menurunkan hasil panen',
+                        altEval1: 'Erosi meningkatkan kesuburan tanah',
+                        altEval2: 'Tidak ada dampak terhadap pertanian',
+                        altEval3: 'Hanya mempengaruhi estetika lansekap'
+                    },
+                    {
+                        term: 'iklim tropis',
+                        correct: 'Iklim dengan suhu tinggi sepanjang tahun dan curah hujan tinggi',
+                        distractor1: 'Iklim dengan empat musim yang jelas',
+                        distractor2: 'Iklim dengan suhu sangat dingin',
+                        distractor3: 'Iklim dengan curah hujan sangat rendah',
+                        process: 'pembentukan hutan hujan',
+                        characteristic: 'keanekaragaman hayati tinggi',
+                        concept1: 'iklim ekuatorial',
+                        concept2: 'iklim muson',
+                        relationship: 'Ekuatorial hujan sepanjang tahun, muson memiliki musim kering dan basah',
+                        altRelation1: 'Tidak ada perbedaan curah hujan',
+                        altRelation2: 'Keduanya memiliki empat musim',
+                        altRelation3: 'Sama-sama beriklim dingin',
+                        comparison: 'iklim subtropis',
+                        concept: 'pemanasan global',
+                        impact: 'perubahan pola curah hujan',
+                        evaluation: 'Mengubah musim tanam dan mengancam ketahanan pangan',
+                        altEval1: 'Tidak ada dampak pada pertanian',
+                        altEval2: 'Hanya mempengaruhi suhu udara',
+                        altEval3: 'Meningkatkan produktivitas pertanian'
+                    }
+                ]
+            };
+            
+            // Return subject-specific keywords or generic fallback
+            return keywords[mapel] || [
+                {
+                    term: topik,
+                    correct: `Konsep utama dalam ${topik}`,
+                    distractor1: 'Alternatif yang kurang tepat',
+                    distractor2: 'Pilihan yang tidak relevan',
+                    distractor3: 'Jawaban yang salah',
+                    process: `proses dalam ${topik}`,
+                    characteristic: 'memiliki karakteristik khusus',
+                    concept1: 'konsep pertama',
+                    concept2: 'konsep kedua',
+                    relationship: `Hubungan antara konsep dalam ${topik}`,
+                    altRelation1: 'Hubungan yang kurang tepat',
+                    altRelation2: 'Hubungan yang salah',
+                    altRelation3: 'Tidak ada hubungan',
+                    comparison: 'konsep pembanding',
+                    concept: 'konsep utama',
+                    impact: 'dampak penting',
+                    evaluation: `Evaluasi terhadap ${topik}`,
+                    altEval1: 'Evaluasi yang kurang tepat',
+                    altEval2: 'Evaluasi yang salah',
+                    altEval3: 'Evaluasi yang tidak relevan'
+                }
+            ];
+        }
+
+        function getAIMatchingQuestions(pairs, topik, mapel, kesulitan) {
+            const matchingPairs = [];
+            const subjectPairs = getMatchingPairs(mapel, topik);
+            
+            for (let i = 0; i < pairs; i++) {
+                const pair = subjectPairs[i % subjectPairs.length];
+                matchingPairs.push({
+                    columnA: pair.columnA,
+                    columnB: pair.columnB
+                });
+            }
+            
+            // Shuffle column B for difficulty
+            const shuffledB = matchingPairs.map(p => p.columnB).sort(() => Math.random() - 0.5);
+            return matchingPairs.map((p, i) => ({
+                columnA: p.columnA,
+                columnB: shuffledB[i]
+            }));
+        }
+
+        function getMatchingPairs(mapel, topik) {
+            const pairs = {
+                'Bahasa Indonesia': [
+                    { columnA: 'Struktur orientasi', columnB: 'Pengenalan tokoh dan latar' },
+                    { columnA: 'Struktur komplikasi', columnB: 'Munculnya konflik atau masalah' },
+                    { columnA: 'Struktur resolusi', columnB: 'Penyelesaian masalah' },
+                    { columnA: 'Majas personifikasi', columnB: 'Memberikan sifat manusia pada benda mati' },
+                    { columnA: 'Majas metafora', columnB: 'Perbandingan langsung tanpa kata pembanding' },
+                    { columnA: 'Konjungsi temporal', columnB: 'Penghubung yang menyatakan waktu' },
+                    { columnA: 'Konjungsi kausal', columnB: 'Penghubung yang menyatakan sebab-akibat' },
+                    { columnA: 'Kalimat efektif', columnB: 'Kalimat yang hemat, jelas, dan logis' },
+                    { columnA: 'Teks eksposisi', columnB: 'Teks yang menjelaskan informasi' },
+                    { columnA: 'Teks argumentasi', columnB: 'Teks yang berisi pendapat dan bukti' }
+                ],
+                'Matematika': [
+                    { columnA: 'Segitiga sama sisi', columnB: 'Ketiga sisinya sama panjang' },
+                    { columnA: 'Segitiga sama kaki', columnB: 'Dua sisi sama panjang' },
+                    { columnA: 'Sudut siku-siku', columnB: '90 derajat' },
+                    { columnA: 'Sudut tumpul', columnB: 'Lebih dari 90 derajat' },
+                    { columnA: 'Sudut lancip', columnB: 'Kurang dari 90 derajat' },
+                    { columnA: 'Bilangan prima', columnB: 'Hanya habis dibagi 1 dan dirinya sendiri' },
+                    { columnA: 'Bilangan komposit', columnB: 'Memiliki lebih dari dua faktor' },
+                    { columnA: 'Median', columnB: 'Nilai tengah data terurut' },
+                    { columnA: 'Modus', columnB: 'Nilai yang paling sering muncul' },
+                    { columnA: 'Mean', columnB: 'Rata-rata dari sekumpulan data' }
+                ],
+                'Ekonomi': [
+                    { columnA: 'Hukum permintaan', columnB: 'Jika harga naik, permintaan turun' },
+                    { columnA: 'Hukum penawaran', columnB: 'Jika harga naik, penawaran naik' },
+                    { columnA: 'Pasar oligopoli', columnB: 'Dikuasai beberapa produsen besar' },
+                    { columnA: 'Pasar monopoli', columnB: 'Dikuasai satu produsen' },
+                    { columnA: 'Inflasi', columnB: 'Kenaikan harga secara umum' },
+                    { columnA: 'Deflasi', columnB: 'Penurunan harga secara umum' },
+                    { columnA: 'Depresiasi', columnB: 'Penurunan nilai tukar mata uang' },
+                    { columnA: 'Apresiasi', columnB: 'Kenaikan nilai tukar mata uang' },
+                    { columnA: 'Kebijakan fiskal', columnB: 'Pengaturan pendapatan dan pengeluaran negara' },
+                    { columnA: 'Kebijakan moneter', columnB: 'Pengaturan jumlah uang beredar' }
+                ],
+                'Sosiologi': [
+                    { columnA: 'Kelompok primer', columnB: 'Hubungan intim dan personal' },
+                    { columnA: 'Kelompok sekunder', columnB: 'Hubungan impersonal dan formal' },
+                    { columnA: 'Sosialisasi primer', columnB: 'Pembelajaran nilai di keluarga' },
+                    { columnA: 'Sosialisasi sekunder', columnB: 'Pembelajaran nilai di masyarakat luas' },
+                    { columnA: 'Konflik vertikal', columnB: 'Konflik antar kelas sosial berbeda' },
+                    { columnA: 'Konflik horizontal', columnB: 'Konflik dalam kelas sosial sama' },
+                    { columnA: 'Mobilitas vertikal', columnB: 'Perpindahan status naik/turun' },
+                    { columnA: 'Mobilitas horizontal', columnB: 'Perpindahan status setara' },
+                    { columnA: 'Perubahan evolusi', columnB: 'Perubahan lambat dan bertahap' },
+                    { columnA: 'Perubahan revolusi', columnB: 'Perubahan cepat dan mendasar' }
+                ],
+                'Geografi': [
+                    { columnA: 'Tenaga endogen', columnB: 'Tenaga dari dalam bumi' },
+                    { columnA: 'Tenaga eksogen', columnB: 'Tenaga dari luar bumi' },
+                    { columnA: 'Intrusi magma', columnB: 'Penerobosan magma ke batuan' },
+                    { columnA: 'Ekstrusi magma', columnB: 'Keluarnya magma ke permukaan' },
+                    { columnA: 'Pelapukan fisik', columnB: 'Hancurnya batuan tanpa perubahan kimia' },
+                    { columnA: 'Pelapukan kimia', columnB: 'Hancurnya batuan dengan perubahan kimia' },
+                    { columnA: 'Erosi', columnB: 'Pengikisan dan pengangkutan material' },
+                    { columnA: 'Sedimentasi', columnB: 'Pengendapan material' },
+                    { columnA: 'Danau tektonik', columnB: 'Terbentuk akibat patahan' },
+                    { columnA: 'Danau vulkanik', columnB: 'Terbentuk di kawah gunung api' }
+                ]
+            };
+            
+            return pairs[mapel] || [
+                { columnA: `Konsep A dalam ${topik}`, columnB: 'Penjelasan konsep A' },
+                { columnA: `Konsep B dalam ${topik}`, columnB: 'Penjelasan konsep B' },
+                { columnA: `Konsep C dalam ${topik}`, columnB: 'Penjelasan konsep C' },
+                { columnA: `Konsep D dalam ${topik}`, columnB: 'Penjelasan konsep D' },
+                { columnA: `Konsep E dalam ${topik}`, columnB: 'Penjelasan konsep E' }
+            ];
+        }
+
+        function generateKunciJawaban(jenis, jumlah) {
+            let kunci = '';
+            
+            if (jenis === 'Pilihan Ganda') {
+                const answers = ['A', 'B', 'C', 'D'];
+                let kunciItems = '';
+                for (let i = 1; i <= jumlah; i++) {
+                    const answer = answers[Math.floor(Math.random() * answers.length)];
+                    kunciItems += `<div class="flex items-center gap-2"><span class="font-semibold text-slate-700">${i}.</span><span class="px-2 py-1 bg-green-100 text-green-700 rounded font-bold">${answer}</span></div>`;
+                }
+                kunci = `
+                    <div class="mb-6">
+                        <div class="bg-green-600 text-white px-5 py-3 rounded-t-xl font-bold">
+                            Kunci Jawaban
+                        </div>
+                        <div class="bg-white border-2 border-green-600 rounded-b-xl p-5">
+                            <div class="grid grid-cols-5 md:grid-cols-10 gap-3">
+                                ${kunciItems}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (jenis === 'Esai') {
+                kunci = `
+                    <div class="mb-6">
+                        <div class="bg-green-600 text-white px-5 py-3 rounded-t-xl font-bold">
+                            Pedoman Penskoran Esai
+                        </div>
+                        <div class="bg-white border-2 border-green-600 rounded-b-xl p-5">
+                            <p class="text-slate-700 text-sm mb-3">Setiap soal dinilai berdasarkan:</p>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-start gap-2"><span class="text-green-600">•</span><span class="text-slate-700"><strong>Kelengkapan (40%):</strong> Jawaban mencakup semua aspek yang ditanyakan</span></li>
+                                <li class="flex items-start gap-2"><span class="text-green-600">•</span><span class="text-slate-700"><strong>Keakuratan (30%):</strong> Konsep dan informasi yang disampaikan benar</span></li>
+                                <li class="flex items-start gap-2"><span class="text-green-600">•</span><span class="text-slate-700"><strong>Sistematika (20%):</strong> Jawaban terstruktur dan logis</span></li>
+                                <li class="flex items-start gap-2"><span class="text-green-600">•</span><span class="text-slate-700"><strong>Bahasa (10%):</strong> Penggunaan bahasa yang baik dan benar</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            } else {
+                kunci = `
+                    <div class="mb-6">
+                        <div class="bg-green-600 text-white px-5 py-3 rounded-t-xl font-bold">
+                            Kunci Jawaban
+                        </div>
+                        <div class="bg-white border-2 border-green-600 rounded-b-xl p-5">
+                            <p class="text-slate-700 text-sm italic">Kunci jawaban disesuaikan dengan soal yang dibuat</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            return kunci;
+        }
+
+        function generateRubrikPenilaian(jenis) {
+            return `
+                <div class="mb-6">
+                    <div class="bg-amber-600 text-white px-5 py-3 rounded-t-xl font-bold">
+                        Rubrik Penilaian
+                    </div>
+                    <div class="bg-white border-2 border-amber-600 rounded-b-xl p-5">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm border-collapse">
+                                <thead>
+                                    <tr class="bg-amber-600 text-white">
+                                        <th class="border border-amber-700 px-3 py-2 text-left">Aspek</th>
+                                        <th class="border border-amber-700 px-3 py-2 text-center">Sangat Baik (4)</th>
+                                        <th class="border border-amber-700 px-3 py-2 text-center">Baik (3)</th>
+                                        <th class="border border-amber-700 px-3 py-2 text-center">Cukup (2)</th>
+                                        <th class="border border-amber-700 px-3 py-2 text-center">Kurang (1)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-slate-600">
+                                    <tr class="bg-white">
+                                        <td class="border border-slate-200 px-3 py-2 font-medium">Ketepatan Jawaban</td>
+                                        <td class="border border-slate-200 px-3 py-2 text-center">91-100% benar</td>
+                                        <td class="border border-slate-200 px-3 py-2 text-center">75-90% benar</td>
+                                        <td class="border border-slate-200 px-3 py-2 text-center">60-74% benar</td>
+                                        <td class="border border-slate-200 px-3 py-2 text-center"><60% benar</td>
+                                    </tr>
+                                    <tr class="bg-slate-50">
+                                        <td class="border border-slate-200 px-3 py-2 font-medium">Kecepatan Pengerjaan</td>
+                                        <td class="border border-slate-200 px-3 py-2 text-center">Selesai tepat waktu</td>
+                                        <td class="border border-slate-200 px-3 py-2 text-center">Telat <5 menit</td>
+                                        <td class="border border-slate-200 px-3 py-2 text-center">Telat 5-10 menit</td>
+                                        <td class="border border-slate-200 px-3 py-2 text-center">Telat >10 menit</td>
+                                    </tr>
+                                    <tr class="bg-white">
+                                        <td class="border border-slate-200 px-3 py-2 font-medium">Kemandirian</td>
+                                        <td class="border border-slate-200 px-3 py-2 text-center">Sangat mandiri</td>
+                                        <td class="border border-slate-200 px-3 py-2 text-center">Mandiri</td>
+                                        <td class="border border-slate-200 px-3 py-2 text-center">Cukup mandiri</td>
+                                        <td class="border border-slate-200 px-3 py-2 text-center">Kurang mandiri</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-4 p-3 bg-amber-50 rounded-lg">
+                            <p class="text-slate-700 text-sm"><strong>Perhitungan Nilai:</strong> Total Skor / Skor Maksimal × 100</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initialize on load
+        initApp();
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c7f77f4964bca88',t:'MTc3MDA5NTkxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
